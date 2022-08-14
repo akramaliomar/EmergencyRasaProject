@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../EmargenceResponseChatbot/.idea/EmargenceResponseChatbot.iml" filepath="$PROJECT_DIR$/../EmargenceResponseChatbot/.idea/EmargenceResponseChatbot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../EmergencyChatbot2/.idea/EmergencyChatbot2.iml" filepath="$PROJECT_DIR$/../EmergencyChatbot2/.idea/EmergencyChatbot2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EmergencyRasaProject.iml" filepath="$PROJECT_DIR$/.idea/EmergencyRasaProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../chatbotChannel/.idea/chatbotChannel.iml" filepath="$PROJECT_DIR$/../chatbotChannel/.idea/chatbotChannel.iml" />
+    </modules>
+  </component>
+</project>

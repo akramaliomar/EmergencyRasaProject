@@ -1,0 +1,150 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - start_support
+  - request_diagnosis
+  - prescription
+  - set_code:
+      use_entities:
+        - number
+  - vital_signs:
+      use_entities:
+        - vital_sign
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_vital_sign:
+  - text: "Your choose is {vital_sign}"
+
+  utter_code:
+    - text: "you code is{code}"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_thanks:
+    - text: "Thanks for providing the values."
+
+#  utter_details_thanks:
+#    - text: 'Thanks for providing the given details \n Date: {my_time},\n Number: {my_number}'
+
+  utter_out_of_scope:
+    - text: "Sorry,Invalid Response."
+
+  utter_initialized:
+    - text: "Initialized...."
+
+  utter_medbot_greet:
+  - text: "Hello, I am Physician Bot"
+
+  utter_medbot_intro:
+    - text: "I am designed to diagnose the prescribe the patient"
+
+  utter_ask_start:
+    - text: "Shall we get started?"
+      buttons:
+        - title: "Lets get Started"
+          payload: /start_support
+        - title: "No, Thanks"
+          payload: /deny
+
+
+  utter_ask_auth_code:
+    - text: "Please enter your code "
+
+  utter_ask_vital_signs:
+    - text: "Which vital sign would you want to diagnose?"
+#      buttons:
+#        - title: "Body Temperature"
+#          payload: /temperature
+#        - title: "Blood Pressure"
+#          payload: /pressure
+#        - title: "Heart Rate"
+#          payload: /heart
+#        - title: "Respiration Rate"
+#          payload: /respiration
+#        - title: "All"
+#          payload: /all
+#        - title: "None"
+#          payload: /deny_vital
+
+  utter_temperature:
+    - text: "The Body Temperature of the patient is {temperature}"
+
+  utter_pressure:
+    - text: "The Blood Pressure of the patient is {pressure}"
+
+  utter_heart:
+    - text: "The Heart Rate of the patient is {heart}"
+
+
+  utter_respiration:
+    - text: "The Respiration Rate of the patient is {respiration}"
+
+  utter_all:
+    - text: "{all}"
+
+  utter_none:
+    - text: "{none}"
+
+  utter_auth_success:
+    - text: "Greate! You are successfully authenticated"
+
+
+  utter_auth_fail:
+    - text: "Error Wrong Code"
+
+  utter_check_device:
+    - text : "To Proceed, Please Make sure you attach the device to the patient."
+
+  utter_what_to_do:
+    - text : "What would like to do?"
+      buttons:
+        - title: "Diagnosis"
+          payload: /diagnosis
+        - title: "Prescription"
+          payload: /prescription
+        - title: "None"
+          payload: /deny
+
+entities:
+- vital_sign
+- number
+slots:
+  vital_signs:
+    type: text
+    influence_conversation: true
+  auth_code:
+    type: any
+
+actions:
+  - action_diagnosis_submit
+  - utter_out_of_scope
+  - action_authentication_submit
+
+forms:
+  authentication_form:
+    required_slots:
+      auth_code:
+        - type: from_entity
+          entity: number
+
+  diagnosis_forms:
+    required_slots:
+      vital_signs:
+        - type: from_entity
+          entity: vital_sign
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

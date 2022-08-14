@@ -1,0 +1,95 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: set_code
+  examples: |
+    - my code is 123?
+    - 123
+    - this is my code 1234
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: vital_signs
+  examples: |
+    - i want to check [temperature]{"entity": "vital_sign", "value": "temperature"}
+    - i want to check [Temp]{"entity": "vital_sign", "value": "Temp"}
+    - i want to check [Heat]{"entity": "vital_sign", "value": "Heat"}
+    - i want to check [heart]{"entity": "vital_sign", "value": "heart"}
+    - i want to check [Heart]{"entity": "vital_sign", "value": "Heart"}
+    - i want to check [all]{"entity": "vital_sign", "value": "all"}
+    - [all]{"entity": "vital_sign", "value": "all"}
+    - [respiration]{"entity": "vital_sign", "value": "respiration"}
+    - [Respiration]{"entity": "vital_sign", "value": "Respiration"}
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+
+- intent: request_diagnosis
+  examples: |
+    - diagnosis
+    - Diagnosis
+    - Check Vital Signs
+    
+- intent: prescription
+  examples: |
+    - prescription
+    - Prescription
+    - Treating the patient
+    - prescribe the patient
+
+- intent: start_support
+  examples: |
+    - Start support
+    - start
