@@ -111,7 +111,7 @@ responses:
     - text : "What would like to do?"
       buttons:
         - title: "Diagnosis"
-          payload: /diagnosis
+          payload: /request_diagnosis
         - title: "Prescription"
           payload: /prescription
         - title: "None"
