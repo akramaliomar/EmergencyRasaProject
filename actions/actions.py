@@ -12,8 +12,8 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
-from actions.vital_sign_rest_api import fetch_vital_signs
-from actions.vital_sign_rest_api import weather_things_speak
+# from actions.vital_sign_rest_api import fetch_vital_signs
+# from actions.vital_sign_rest_api import weather_things_speak
 
 
 class ValidateRestaurantForm(Action):
@@ -77,18 +77,18 @@ class ActionSubmit(Action):
             domain: "DomainDict",
     ) -> List[Dict[Text, Any]]:
         # vital_signs = fetch_vital_signs()
-        temp = weather_things_speak()['field1']
+        #temp = weather_things_speak()['field1']
         vital_signs = [[12, 222, 444, 666, 666, 777]]
         if len(vital_signs) > 0:
 
-            tempr = str(temp)
-            resp = str(temp)
-            hr = str(temp)
-            spo2 = str(temp)
-            # tempr = str(vital_signs[0][5])
-            # resp = str(vital_signs[0][4])
-            # hr = str(vital_signs[0][2])
-            # spo2 = str(vital_signs[0][3])
+            # tempr = str(temp)
+            # resp = str(temp)
+            # hr = str(temp)
+            # spo2 = str(temp)
+            tempr = str(vital_signs[0][5])
+            resp = str(vital_signs[0][4])
+            hr = str(vital_signs[0][2])
+            spo2 = str(vital_signs[0][3])
         else:
             tempr = "No data"
             resp = "No data"

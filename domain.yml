@@ -79,20 +79,20 @@ responses:
 #          payload: /deny_vital
 
   utter_temperature:
-    - text: "The Body Temperature of the patient is {temperature}"
+        - text: "Recent Temperature Reading:{temperature}\n Maximum: {maxtempr}\n Minimum: {mintempr}\n Mean: {avgtempr} "
 
   utter_pressure:
-    - text: "The Blood Pressure of the patient is {pressure}"
+        - text: "Recent Blood Pressure Reading:{pressure}\n Maximum: {maxspo2}\n Minimum: {minspo2}\n Mean: {avgspo2} "
+
 
   utter_heart:
-    - text: "The Heart Rate of the patient is {heart}"
-
+    - text: "Recent Heart Rate Reading:{heart}\n Maximum: {maxhr}\n Minimum: {minhr}\n Mean: {avghr} "
 
   utter_respiration:
-    - text: "The Respiration Rate of the patient is {respiration}"
+    - text: "Recent Respiration Rate Reading:{respiration}\n Maximum: {maxresp}\n Minimum: {minresp}\n Mean: {avgresp} "
 
   utter_all:
-    - text: "{all}"
+    - text: "Recent Vital Signs Readings:\n {all}"
 
   utter_none:
     - text: "{none}"

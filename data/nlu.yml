@@ -63,10 +63,20 @@ nlu:
     - i want to check [Heat]{"entity": "vital_sign", "value": "Heat"}
     - i want to check [heart]{"entity": "vital_sign", "value": "heart"}
     - i want to check [Heart]{"entity": "vital_sign", "value": "Heart"}
+    - i want to check [Pressure]{"entity": "vital_sign", "value": "Pressure"}
+    - i want to check [pressure]{"entity": "vital_sign", "value": "pressure"}
+    - i want to check [Hypertension]{"entity": "vital_sign", "value": "Hypertension"}
     - i want to check [all]{"entity": "vital_sign", "value": "all"}
     - [all]{"entity": "vital_sign", "value": "all"}
     - [respiration]{"entity": "vital_sign", "value": "respiration"}
     - [Respiration]{"entity": "vital_sign", "value": "Respiration"}
+    - [Hypertension]{"entity": "vital_sign", "value": "Hypertension"}
+    - [pressure]{"entity": "vital_sign", "value": "pressure"}
+    - [Pressure]{"entity": "vital_sign", "value": "Pressure"}
+    - [temperature]{"entity": "vital_sign", "value": "temperature"}
+    - [Temperature]{"entity": "vital_sign", "value": "Temperature"}
+    - [Temp]{"entity": "vital_sign", "value": "Temp"}
+    - [temp]{"entity": "vital_sign", "value": "temp"}
 
 - intent: bot_challenge
   examples: |
@@ -93,3 +103,4 @@ nlu:
   examples: |
     - Start support
     - start
+     - Ok
