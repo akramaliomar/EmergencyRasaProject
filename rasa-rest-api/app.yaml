@@ -1,0 +1,9 @@
+#app.yaml
+runtime: python37
+
+env_variables:
+  CLOUD_SQL_USERNAME: akram
+  CLOUD_SQL_PASSWORD: alsharif_2022
+  CLOUD_SQL_DATABASE_NAME: vital_signs
+  CLOUD_SQL_CONNECTION_NAME: aceiot-project:us-central1:mysql-server
+
