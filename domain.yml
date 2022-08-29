@@ -88,6 +88,36 @@ responses:
   utter_heart:
     - text: "Recent Heart Rate Reading:{heart}\n Maximum: {maxhr}\n Minimum: {minhr}\n Mean: {avghr} "
 
+  utter_health_status:
+    - text: "The Health Condition is {health_status}"
+
+  utter_exceed_tempr:
+    - text: "The Current temperature reading exceed {tempr} Please follow the steps below to reduce the body heat"
+
+  utter_less_tempr:
+    - text: "The Current temperature reading is {tempr} Please follow the steps below to increase the body heat"
+
+  utter_exceed_resp:
+    - text: "The Current respiration reading exceed to {resp} Please follow the steps below to stabilise the excess breathing"
+
+  utter_no_data:
+    - text: "{no_data}"
+
+  utter_less_resp:
+    - text: "The Current respiration reading is {resp} Please follow the steps for breathing relaxation"
+
+  utter_exceed_hr:
+    - text: "The Current heart rate reading exceed to {hr} Please follow the steps to lower the heart rate"
+
+  utter_less_hr:
+    - text: "The Current respiration reading is {hr} Please follow the steps for improving the heart rate"
+
+  utter_high_pressure:
+    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to lower the pressure to the safe value"
+
+  utter_low_pressure:
+    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to increase the pressure to save value"
+
   utter_respiration:
     - text: "Recent Respiration Rate Reading:{respiration}\n Maximum: {maxresp}\n Minimum: {minresp}\n Mean: {avgresp} "
 
@@ -108,7 +138,7 @@ responses:
     - text : "To Proceed, Please Make sure you attach the device to the patient."
 
   utter_what_to_do:
-    - text : "What would like to do?"
+    - text : "What would you like to do?"
       buttons:
         - title: "Diagnosis"
           payload: /request_diagnosis
@@ -131,6 +161,7 @@ actions:
   - action_diagnosis_submit
   - utter_out_of_scope
   - action_authentication_submit
+  - check_heath_status_action
 
 forms:
   authentication_form:

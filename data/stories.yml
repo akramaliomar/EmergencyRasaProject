@@ -11,6 +11,11 @@ stories:
     - intent: deny
     - action: utter_goodbye
 
+- story: hapy path prescription
+  steps:
+    - intent: prescription
+    - action: check_heath_status_action
+
 #- story: hapy path authentication
 #  steps:
 #  - intent: vital_signs

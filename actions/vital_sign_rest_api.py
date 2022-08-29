@@ -16,4 +16,9 @@ def fetch_aggr_signs():
     # print(format_add)
     return json_data
 
-print(fetch_aggr_signs())
+def fetch_heath_status():
+    url = 'https://aceiot-project.uc.r.appspot.com/prediction'
+    json_data = requests.get(url).json()
+    # format_add = json_data['main']
+    # print(format_add)
+    return json_data
