@@ -9,14 +9,31 @@ services:
       - ./:/app
     command:
       - run
+
+  db:
+    container_name: mysqlserver
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'vital_signs'
+      MYSQL_ROOT_PASSWORD: 'alsharif_2022'
+
   actionserver:
     image: rasa/rasa-sdk:2.8.4
     volumes:
       - ./actions:/app/actions
     ports:
       - 5055:5055
+    links:
+      - db
+    depends_on:
+      - db
+
+
 
   duckling:
     image: "rasa/duckling"
     ports:
       - 8000:8000
+

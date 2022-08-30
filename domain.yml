@@ -9,6 +9,11 @@ intents:
   - start_support
   - request_diagnosis
   - prescription
+  - add_user
+  - have_account
+  - user_diagnostic_enquiries
+  - user_what_is_wrong
+  - user_what_is_suggested
   - set_code:
       use_entities:
         - number
@@ -50,6 +55,17 @@ responses:
   utter_medbot_intro:
     - text: "I am designed to diagnose the prescribe the patient"
 
+  utter_ask_for_help:
+    - text: "How can I help you?"
+#      buttons:
+#        - title: "Checking Patient condition?"
+#          payload: /request_diagnosis
+#        - title: "Prescription"
+#          payload: /prescription
+#        - title: "None"
+#          payload: /deny
+
+
   utter_ask_start:
     - text: "Shall we get started?"
       buttons:
@@ -59,24 +75,16 @@ responses:
           payload: /deny
 
 
+
   utter_ask_auth_code:
     - text: "Please enter your code "
 
+  utter_ask_auth_name:
+    - text: "Please enter your username "
+
   utter_ask_vital_signs:
     - text: "Which vital sign would you want to diagnose?"
-#      buttons:
-#        - title: "Body Temperature"
-#          payload: /temperature
-#        - title: "Blood Pressure"
-#          payload: /pressure
-#        - title: "Heart Rate"
-#          payload: /heart
-#        - title: "Respiration Rate"
-#          payload: /respiration
-#        - title: "All"
-#          payload: /all
-#        - title: "None"
-#          payload: /deny_vital
+
 
   utter_temperature:
         - text: "Recent Temperature Reading:{temperature}\n Maximum: {maxtempr}\n Minimum: {mintempr}\n Mean: {avgtempr} "
@@ -91,32 +99,63 @@ responses:
   utter_health_status:
     - text: "The Health Condition is {health_status}"
 
-  utter_exceed_tempr:
-    - text: "The Current temperature reading exceed {tempr} Please follow the steps below to reduce the body heat"
+  utter_abnormal_response:
+    - text: "{abnormal_response}"
 
-  utter_less_tempr:
-    - text: "The Current temperature reading is {tempr} Please follow the steps below to increase the body heat"
-
-  utter_exceed_resp:
-    - text: "The Current respiration reading exceed to {resp} Please follow the steps below to stabilise the excess breathing"
+  utter_normal_response:
+    - text: "{normal_response}"
 
   utter_no_data:
     - text: "{no_data}"
+  utter_temp_suggest:
+    - text: "{tempr_suggest}"
+  utter_resp_suggest:
+    - text: "{resp_suggest}"
+  utter_hr_suggest:
+    - text: "{hr_suggest}"
+  utter_pressure_suggest:
+    - text: "{spo2_suggest}"
+
+
+
+  utter_exceed_tempr:
+    - text: "The Current temperature reading exceed {tempr}"
+
+  utter_less_tempr:
+    - text: "The Current temperature reading is {tempr}"
+
+  utter_exceed_resp:
+    - text: "The Current respiration reading exceed to {resp}"
 
   utter_less_resp:
-    - text: "The Current respiration reading is {resp} Please follow the steps for breathing relaxation"
+    - text: "The Current respiration reading is {resp}"
 
   utter_exceed_hr:
-    - text: "The Current heart rate reading exceed to {hr} Please follow the steps to lower the heart rate"
+    - text: "The Current heart rate reading exceed to {hr}"
 
   utter_less_hr:
-    - text: "The Current respiration reading is {hr} Please follow the steps for improving the heart rate"
+    - text: "The Current respiration reading is {hr}"
 
   utter_high_pressure:
-    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to lower the pressure to the safe value"
+    - text: "The current blood pressure reading is {spo2}"
 
   utter_low_pressure:
-    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to increase the pressure to save value"
+    - text: "The current blood pressure reading is {spo2}"
+#
+#  utter_less_resp:
+#    - text: "The Current respiration reading is {resp} Please follow the steps for breathing relaxation"
+#
+#  utter_exceed_hr:
+#    - text: "The Current heart rate reading exceed to {hr} Please follow the steps to lower the heart rate"
+#
+#  utter_less_hr:
+#    - text: "The Current respiration reading is {hr} Please follow the steps for improving the heart rate"
+#
+#  utter_high_pressure:
+#    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to lower the pressure to the safe value"
+#
+#  utter_low_pressure:
+#    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to increase the pressure to save value"
 
   utter_respiration:
     - text: "Recent Respiration Rate Reading:{respiration}\n Maximum: {maxresp}\n Minimum: {minresp}\n Mean: {avgresp} "
@@ -127,12 +166,18 @@ responses:
   utter_none:
     - text: "{none}"
 
+  utter_user_success:
+    - text: "You have been registered successfully with username:  {user_name}"
+
+  utter_user_fail:
+    - text: "Registration of {user_name} failed"
+
   utter_auth_success:
-    - text: "Greate! You are successfully authenticated"
+    - text: "Greate! You are successfully authenticated username: {auth_name} user_code {auth_code}"
 
 
   utter_auth_fail:
-    - text: "Error Wrong Code"
+    - text: "Error Wrong username: {auth_name} or user_code {auth_code} "
 
   utter_check_device:
     - text : "To Proceed, Please Make sure you attach the device to the patient."
@@ -147,6 +192,16 @@ responses:
         - title: "None"
           payload: /deny
 
+  utter_ask_user:
+    - text : "Do you have an Account?"
+      buttons:
+        - title: "Yes"
+          payload: /have_account
+        - title: "No"
+          payload: /have_account
+
+
+
 entities:
 - vital_sign
 - number
@@ -157,11 +212,27 @@ slots:
   auth_code:
     type: any
 
+  auth_name:
+    type: text
+
+  temp_reading:
+    type: float
+  sop2_reading:
+    type: float
+  heart_reading:
+    type: float
+  resp_reading:
+    type: float
+
 actions:
   - action_diagnosis_submit
   - utter_out_of_scope
   - action_authentication_submit
   - check_heath_status_action
+  - add_user_action
+  - diagnostic_response_action
+  - check_abnormal_vital_signs_action
+  - suggested_action
 
 forms:
   authentication_form:
@@ -169,6 +240,7 @@ forms:
       auth_code:
         - type: from_entity
           entity: number
+          intent: set_code
 
   diagnosis_forms:
     required_slots:

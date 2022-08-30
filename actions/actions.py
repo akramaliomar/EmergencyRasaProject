@@ -7,30 +7,74 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
-from typing import Any, Text, Dict, List
-
+# from typing import Any, Text, Dict, List
+# from rasa_sdk import tensorflow
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
 from actions.vital_sign_rest_api import fetch_vital_signs, fetch_aggr_signs, fetch_heath_status
+from actions.db import add_user, authenticate_user
+from typing import Dict, Text, List, Optional, Any
+from rasa_sdk.forms import FormValidationAction
 
 
-class ValidateRestaurantForm(Action):
+class ActionAddUser(Action):
+    def name(self) -> Text:
+        return "add_user_action"
+
+    def run(
+            self,
+            dispatcher,
+            tracker: Tracker,
+            domain: "DomainDict",
+    ) -> List[Dict[Text, Any]]:
+        # users = add_user("ali", 2345)
+        users = add_user("ali", 2345)
+        if users == "success":
+            dispatcher.utter_message(template="utter_user_success", user_name="user_name")
+        else:
+            dispatcher.utter_message(template="utter_user_fail", user_name="user_name")
+
+
+class ValidateAuthenticationForm(Action):
     def name(self) -> Text:
         return "validate_authentication_form"
 
-    def run(
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> Optional[List[Text]]:
+        required_slots = slots_mapped_in_domain + ["auth_name"]
+        return required_slots
+
+    async def extract_auth_name(
             self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> List[EventType]:
-        required_slots = ["auth_code"]
+    ) -> Dict[Text, Any]:
+        text_of_last_user_message = tracker.latest_message.get("text")
+        # sit_outside = "outdoor" in text_of_last_user_message
 
-        for slot_name in required_slots:
-            if tracker.slots.get(slot_name) is None:
-                # The slot is not filled yet. Request the user to fill this slot next.
-                return [SlotSet("requested_slot", slot_name)]
+        return {"auth_name": text_of_last_user_message}
 
-        # All slots are filled.
-        return [SlotSet("requested_slot", None)]
+
+# class ValidateRestaurantForm(Action):
+#     def name(self) -> Text:
+#         return "validate_authentication_form"
+#
+#     def run(
+#             self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+#     ) -> List[EventType]:
+#         required_slots = ["auth_code"]
+#
+#         for slot_name in required_slots:
+#             if tracker.slots.get(slot_name) is None:
+#                 # The slot is not filled yet. Request the user to fill this slot next.
+#                 return [SlotSet("requested_slot", slot_name)]
+#
+#         # All slots are filled.
+#         return [SlotSet("requested_slot", None)]
 
 
 class ActionSubmit(Action):
@@ -43,13 +87,22 @@ class ActionSubmit(Action):
             tracker: Tracker,
             domain: "DomainDict",
     ) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(template="utter_details_thanks",
-                                 code=tracker.get_slot("auth_code"))
+        ucount = authenticate_user(tracker.get_slot("auth_name"), tracker.get_slot("auth_code"))
+
+        if ucount == 1:
+            dispatcher.utter_message(template="utter_auth_success",
+                                     auth_code=tracker.get_slot("auth_code"), uth_name=tracker.get_slot("auth_name"))
+        else:
+            dispatcher.utter_message(template="utter_auth_fail",
+                                     auth_code=tracker.get_slot("auth_code"), auth_name=tracker.get_slot("auth_name"))
+        # dispatcher.utter_message(template="utter_details_thanks",
+        #                          code=tracker.get_slot("auth_code"))
 
 
 class ActionCheckStatus(Action):
     def name(self) -> Text:
         return "check_heath_status_action"
+
     def run(
             self,
             dispatcher,
@@ -60,43 +113,160 @@ class ActionCheckStatus(Action):
         prediction = fetch_heath_status()
         if len(prediction) > 0:
             output = prediction["msg"]
+
             dispatcher.utter_message(template="utter_health_status",
-                                 health_status=str(output))
-            if output==str("Abnormal"):
+                                     health_status=str(output))
+            if output == str("Abnormal"):
                 vital_signs = fetch_vital_signs()
                 tempr = vital_signs[0]["tempr"]
                 resp = vital_signs[0]["resp"]
                 hr = vital_signs[0]["hr"]
                 spo2 = vital_signs[0]["spo2"]
-                if tempr>=30:
+                if tempr >= 30:
                     dispatcher.utter_message(template="utter_exceed_tempr",
                                              tempr=str(tempr))
-                elif tempr<=20:
+                elif tempr <= 20:
                     dispatcher.utter_message(template="utter_less_tempr",
                                              tempr=str(tempr))
 
-                if resp>=30:
+                if resp >= 30:
                     dispatcher.utter_message(template="utter_exceed_resp",
                                              resp=str(resp))
-                elif resp<=20:
+                elif resp <= 20:
                     dispatcher.utter_message(template="utter_less_resp",
                                              resp=str(resp))
 
-                if hr>=30:
+                if hr >= 30:
                     dispatcher.utter_message(template="utter_exceed_hr",
                                              hr=str(hr))
-                elif hr<=20:
+                elif hr <= 20:
                     dispatcher.utter_message(template="utter_less_hr",
                                              hr=str(hr))
-                if spo2>=90:
+                if spo2 >= 90:
                     dispatcher.utter_message(template="utter_high_pressure",
                                              spo2=str(spo2))
-                elif spo2<=60:
+                elif spo2 <= 60:
                     dispatcher.utter_message(template="utter_low_pressure",
                                              spo2=str(spo2))
 
         else:
             dispatcher.utter_message(template="utter_no_data", no_data="No data available")
+
+
+class ActionCheckAbnormalStatus(Action):
+    def name(self) -> Text:
+        return "check_abnormal_vital_signs_action"
+
+    def run(
+            self,
+            dispatcher,
+            tracker: Tracker,
+            domain: "DomainDict",
+    ) -> List[Dict[Text, Any]]:
+        vital_signs = fetch_vital_signs()
+        if len(vital_signs):
+            tempr = vital_signs[0]["tempr"]
+            resp = vital_signs[0]["resp"]
+            hr = vital_signs[0]["hr"]
+            spo2 = vital_signs[0]["spo2"]
+            if tempr >= 30:
+                dispatcher.utter_message(template="utter_exceed_tempr",
+                                         tempr=str(tempr))
+            elif tempr <= 20:
+                dispatcher.utter_message(template="utter_less_tempr",
+                                         tempr=str(tempr))
+            if resp >= 30:
+                dispatcher.utter_message(template="utter_exceed_resp",
+                                         resp=str(resp))
+            elif resp <= 20:
+                dispatcher.utter_message(template="utter_less_resp",
+                                         resp=str(resp))
+            if hr >= 30:
+                dispatcher.utter_message(template="utter_exceed_hr",
+                                         hr=str(hr))
+            elif hr <= 20:
+                dispatcher.utter_message(template="utter_less_hr",
+                                         hr=str(hr))
+            if spo2 >= 90:
+                dispatcher.utter_message(template="utter_high_pressure",
+                                         spo2=str(spo2))
+            elif spo2 <= 60:
+                dispatcher.utter_message(template="utter_low_pressure",
+                                         spo2=str(spo2))
+            return {"temp_reading": tempr, "sop2_reading": spo2, "heart_reading": hr, "resp_reading": resp}
+        else:
+            dispatcher.utter_message(template="utter_no_data", no_data="No data available")
+
+
+
+class ActionDiagnosticResponseAction(Action):
+    def name(self) -> Text:
+        return "diagnostic_response_action"
+
+    def run(
+            self,
+            dispatcher,
+            tracker: Tracker,
+            domain: "DomainDict",
+    ) -> List[Dict[Text, Any]]:
+        prediction = fetch_heath_status()
+        if len(prediction) > 0:
+            output = prediction["msg"]
+
+            if output == str("Abnormal"):
+                dispatcher.utter_message(template="utter_abnormal_response",
+                                         abnormal_response=str(
+                                             "The Patient condition is not normal. The patient need an agent medical "
+                                             "attention"))
+            elif output == str("normal"):
+                dispatcher.utter_message(template="utter_normal_response",
+                                         normal_response=str("The Patient condition is Normal."))
+        else:
+            dispatcher.utter_message(template="utter_no_data", no_data="No data available")
+
+
+class ActionSuggestion(Action):
+    def name(self) -> Text:
+        return "suggested_action"
+
+    def run(
+            self,
+            dispatcher,
+            tracker: Tracker,
+            domain: "DomainDict",
+    ) -> List[Dict[Text, Any]]:
+
+        vital_signs = fetch_vital_signs()
+        if len(vital_signs):
+            tempr = vital_signs[0]["tempr"]
+            resp = vital_signs[0]["resp"]
+            hr = vital_signs[0]["hr"]
+            spo2 = vital_signs[0]["spo2"]
+            if tempr >= 30:
+                dispatcher.utter_message(template="utter_temp_suggest",
+                                         tempr_suggest="Please follow the steps below to reduce the body heat")
+            elif tempr <= 20:
+                dispatcher.utter_message(template="utter_temp_suggest",
+                                         tempr_suggest="Please follow the steps below to increase the body heat")
+            if resp >= 30:
+                dispatcher.utter_message(template="utter_resp_suggest",
+                                         resp_suggest="Please follow the steps for breathing relaxation")
+            elif resp <= 20:
+                dispatcher.utter_message(template="utter_resp_suggest",
+                                         resp_suggest="Please follow the steps for breathing relaxation")
+            if hr >= 30:
+                dispatcher.utter_message(template="utter_hr_suggest",
+                                         hr_suggest="Please follow the steps to lower the heart rate")
+            elif hr <= 20:
+                dispatcher.utter_message(template="utter_hr_suggest",
+                                         hr_suggest="Please follow the steps for improving the heart rate")
+            if spo2 >= 90:
+                dispatcher.utter_message(template="utter_pressure_suggest",
+                                         spo2_suggest="Please follow the steps bellow to lower the pressure to the safe value")
+            elif spo2 <= 60:
+                dispatcher.utter_message(template="utter_pressure_suggest",
+                                         spo2_suggest="Please follow the steps bellow to increase the pressure to save value")
+
 
 
 class ValidateRestaurantForm(Action):
