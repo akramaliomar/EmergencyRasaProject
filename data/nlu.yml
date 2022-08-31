@@ -64,6 +64,8 @@ nlu:
     - Patient check
     - Check Vital Sign
     - Health check
+    - Can you tel me about the patient?
+    - How is the patient?
     
 
 - intent: user_what_is_wrong
@@ -73,6 +75,12 @@ nlu:
     - Problem?
     - What is the problem?
     - What is not normal?
+    - what is wrong is the patient?
+    - Is there any problem?
+    - Anything wrong with the patient
+    - What is the issue with with patient?
+    - Something wrong with the patient
+    
 
 - intent: user_what_is_suggested
   examples: |
@@ -90,6 +98,13 @@ nlu:
     - how to solve it?
     - how to fix it?
     - fix it
+    - can you tel me how to fix it
+    - tel me how to fix it
+    - what do you suggest?
+    - what is you suggestion?
+    - what medical attention is needed?
+    - is there any medical attention needed
+    - what am i supposed to do
     
 
 

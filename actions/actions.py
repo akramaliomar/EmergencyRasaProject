@@ -13,27 +13,27 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
 from actions.vital_sign_rest_api import fetch_vital_signs, fetch_aggr_signs, fetch_heath_status
-from actions.db import add_user, authenticate_user
+# from actions.db import add_user, authenticate_user
 from typing import Dict, Text, List, Optional, Any
 from rasa_sdk.forms import FormValidationAction
 
-
-class ActionAddUser(Action):
-    def name(self) -> Text:
-        return "add_user_action"
-
-    def run(
-            self,
-            dispatcher,
-            tracker: Tracker,
-            domain: "DomainDict",
-    ) -> List[Dict[Text, Any]]:
-        # users = add_user("ali", 2345)
-        users = add_user("ali", 2345)
-        if users == "success":
-            dispatcher.utter_message(template="utter_user_success", user_name="user_name")
-        else:
-            dispatcher.utter_message(template="utter_user_fail", user_name="user_name")
+#
+# class ActionAddUser(Action):
+#     def name(self) -> Text:
+#         return "add_user_action"
+#
+#     def run(
+#             self,
+#             dispatcher,
+#             tracker: Tracker,
+#             domain: "DomainDict",
+#     ) -> List[Dict[Text, Any]]:
+#         # users = add_user("ali", 2345)
+#         users = add_user("ali", 2345)
+#         if users == "success":
+#             dispatcher.utter_message(template="utter_user_success", user_name="user_name")
+#         else:
+#             dispatcher.utter_message(template="utter_user_fail", user_name="user_name")
 
 
 class ValidateAuthenticationForm(Action):
@@ -87,8 +87,8 @@ class ActionSubmit(Action):
             tracker: Tracker,
             domain: "DomainDict",
     ) -> List[Dict[Text, Any]]:
-        ucount = authenticate_user(tracker.get_slot("auth_name"), tracker.get_slot("auth_code"))
-
+        # ucount = authenticate_user(tracker.get_slot("auth_name"), tracker.get_slot("auth_code"))
+        ucount = 1
         if ucount == 1:
             dispatcher.utter_message(template="utter_auth_success",
                                      auth_code=tracker.get_slot("auth_code"), uth_name=tracker.get_slot("auth_name"))
@@ -216,7 +216,7 @@ class ActionDiagnosticResponseAction(Action):
             if output == str("Abnormal"):
                 dispatcher.utter_message(template="utter_abnormal_response",
                                          abnormal_response=str(
-                                             "The Patient condition is not normal. The patient need an agent medical "
+                                             "The Patient condition is not normal. The patient needs an agent medical "
                                              "attention"))
             elif output == str("normal"):
                 dispatcher.utter_message(template="utter_normal_response",
