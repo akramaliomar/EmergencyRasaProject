@@ -114,7 +114,7 @@ responses:
   - text: I am designed to to help you diagnose and prescribe the patient
 
   utter_service_list:
-    - text: "In this chatbot you can get the following services:\n1- Diagnosing Patient\n 2- Patient Treatment Recommendations"
+  - text: "In this chatbot, you can get the following services:\n1- Diagnosing Patient\n 2- Patient Treatment Recommendations"
   utter_ask_for_help:
   - text: How can I help you?
   - text: Which Service Would you like to have?
@@ -126,6 +126,9 @@ responses:
     - payload: /deny
       title: No, Thanks
     text: Shall we get started?
+
+
+
   utter_ask_auth_code:
   - text: 'Please enter your code '
   utter_ask_auth_name:
@@ -144,6 +147,7 @@ responses:
        Maximum: {maxspo2}
        Minimum: {minspo2}
        Mean: {avgspo2} 
+
   utter_heart:
   - text: |-
       Recent Heart Rate Reading:{heart}
