@@ -112,8 +112,13 @@ responses:
   - text: Hello, I am Physician Bot
   utter_medbot_intro:
   - text: I am designed to to help you diagnose and prescribe the patient
+
+  utter_service_list:
+    - text: "In this chatbot you can get the following services:\n1- Diagnosing Patient\n 2- Patient Treatment Recommendations"
   utter_ask_for_help:
   - text: How can I help you?
+  - text: Which Service Would you like to have?
+
   utter_ask_start:
   - buttons:
     - payload: /start_support
