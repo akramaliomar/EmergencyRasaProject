@@ -1,253 +1,239 @@
-version: "2.0"
-
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - bot_challenge
-  - start_support
-  - request_diagnosis
-  - prescription
-  - add_user
-  - have_account
-  - user_diagnostic_enquiries
-  - user_what_is_wrong
-  - user_what_is_suggested
-  - set_code:
-      use_entities:
-        - number
-  - vital_signs:
-      use_entities:
-        - vital_sign
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_vital_sign:
-  - text: "Your choose is {vital_sign}"
-
-  utter_code:
-    - text: "you code is{code}"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-  utter_thanks:
-    - text: "Thanks for providing the values."
-
-#  utter_details_thanks:
-#    - text: 'Thanks for providing the given details \n Date: {my_time},\n Number: {my_number}'
-
-  utter_out_of_scope:
-    - text: "Sorry,Invalid Response."
-
-  utter_initialized:
-    - text: "Initialized...."
-
-  utter_medbot_greet:
-  - text: "Hello, I am Physician Bot"
-
-  utter_medbot_intro:
-    - text: "I am designed to diagnose the prescribe the patient"
-
-  utter_ask_for_help:
-    - text: "How can I help you?"
-#      buttons:
-#        - title: "Checking Patient condition?"
-#          payload: /request_diagnosis
-#        - title: "Prescription"
-#          payload: /prescription
-#        - title: "None"
-#          payload: /deny
-
-
-  utter_ask_start:
-    - text: "Shall we get started?"
-      buttons:
-        - title: "Lets get Started"
-          payload: /start_support
-        - title: "No, Thanks"
-          payload: /deny
-
-
-
-  utter_ask_auth_code:
-    - text: "Please enter your code "
-
-  utter_ask_auth_name:
-    - text: "Please enter your username "
-
-  utter_ask_vital_signs:
-    - text: "Which vital sign would you want to diagnose?"
-
-
-  utter_temperature:
-        - text: "Recent Temperature Reading:{temperature}\n Maximum: {maxtempr}\n Minimum: {mintempr}\n Mean: {avgtempr} "
-
-  utter_pressure:
-        - text: "Recent Blood Pressure Reading:{pressure}\n Maximum: {maxspo2}\n Minimum: {minspo2}\n Mean: {avgspo2} "
-
-
-  utter_heart:
-    - text: "Recent Heart Rate Reading:{heart}\n Maximum: {maxhr}\n Minimum: {minhr}\n Mean: {avghr} "
-
-  utter_health_status:
-    - text: "The Health Condition is {health_status}"
-
-  utter_abnormal_response:
-    - text: "{abnormal_response}"
-
-  utter_normal_response:
-    - text: "{normal_response}"
-
-  utter_no_data:
-    - text: "{no_data}"
-  utter_temp_suggest:
-    - text: "{tempr_suggest}"
-  utter_resp_suggest:
-    - text: "{resp_suggest}"
-  utter_hr_suggest:
-    - text: "{hr_suggest}"
-  utter_pressure_suggest:
-    - text: "{spo2_suggest}"
-
-
-
-  utter_exceed_tempr:
-    - text: "The Current temperature reading exceed {tempr}"
-
-  utter_less_tempr:
-    - text: "The Current temperature reading is {tempr}"
-
-  utter_exceed_resp:
-    - text: "The Current respiration reading exceed to {resp}"
-
-  utter_less_resp:
-    - text: "The Current respiration reading is {resp}"
-
-  utter_exceed_hr:
-    - text: "The Current heart rate reading exceed to {hr}"
-
-  utter_less_hr:
-    - text: "The Current respiration reading is {hr}"
-
-  utter_high_pressure:
-    - text: "The current blood pressure reading is {spo2}"
-
-  utter_low_pressure:
-    - text: "The current blood pressure reading is {spo2}"
-#
-#  utter_less_resp:
-#    - text: "The Current respiration reading is {resp} Please follow the steps for breathing relaxation"
-#
-#  utter_exceed_hr:
-#    - text: "The Current heart rate reading exceed to {hr} Please follow the steps to lower the heart rate"
-#
-#  utter_less_hr:
-#    - text: "The Current respiration reading is {hr} Please follow the steps for improving the heart rate"
-#
-#  utter_high_pressure:
-#    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to lower the pressure to the safe value"
-#
-#  utter_low_pressure:
-#    - text: "The current blood pressure reading is {spo2} Please follow the steps bellow to increase the pressure to save value"
-
-  utter_respiration:
-    - text: "Recent Respiration Rate Reading:{respiration}\n Maximum: {maxresp}\n Minimum: {minresp}\n Mean: {avgresp} "
-
-  utter_all:
-    - text: "Recent Vital Signs Readings:\n {all}"
-
-  utter_none:
-    - text: "{none}"
-
-  utter_user_success:
-    - text: "You have been registered successfully with username:  {user_name}"
-
-  utter_user_fail:
-    - text: "Registration of {user_name} failed"
-
-  utter_auth_success:
-    - text: "Greate! You are successfully authenticated username: {auth_name} user_code {auth_code}"
-
-
-  utter_auth_fail:
-    - text: "Error Wrong username: {auth_name} or user_code {auth_code} "
-
-  utter_check_device:
-    - text : "To Proceed, Please Make sure you attach the device to the patient."
-
-  utter_what_to_do:
-    - text : "What would you like to do?"
-      buttons:
-        - title: "Diagnosis"
-          payload: /request_diagnosis
-        - title: "Prescription"
-          payload: /prescription
-        - title: "None"
-          payload: /deny
-
-  utter_ask_user:
-    - text : "Do you have an Account?"
-      buttons:
-        - title: "Yes"
-          payload: /have_account
-        - title: "No"
-          payload: /have_account
-
-
-
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- start_support:
+    use_entities: true
+- request_diagnosis:
+    use_entities: true
+- prescription:
+    use_entities: true
+- add_user:
+    use_entities: true
+- have_account:
+    use_entities: true
+- user_diagnostic_enquiries:
+    use_entities: true
+- user_what_is_wrong:
+    use_entities: true
+- user_what_is_suggested:
+    use_entities: true
+- set_code:
+    use_entities:
+    - number
+- vital_signs:
+    use_entities:
+    - vital_sign
+- nlu_fallback:
+    use_entities: true
 entities:
 - vital_sign
 - number
 slots:
   vital_signs:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   auth_code:
-    type: any
-
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
   auth_name:
-    type: text
-
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
   temp_reading:
-    type: float
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
   sop2_reading:
-    type: float
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
   heart_reading:
-    type: float
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
   resp_reading:
-    type: float
-
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_vital_sign:
+  - text: Your choose is {vital_sign}
+  utter_code:
+  - text: you code is{code}
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_thanks:
+  - text: Thanks for providing the values.
+  utter_out_of_scope:
+  - text: Sorry,Invalid Response.
+  utter_initialized:
+  - text: Initialized....
+  utter_medbot_greet:
+  - text: Hello, I am Physician Bot
+  utter_medbot_intro:
+  - text: I am designed to to help you diagnose and prescribe the patient
+  utter_ask_for_help:
+  - text: How can I help you?
+  utter_ask_start:
+  - buttons:
+    - payload: /start_support
+      title: Lets get Started
+    - payload: /deny
+      title: No, Thanks
+    text: Shall we get started?
+  utter_ask_auth_code:
+  - text: 'Please enter your code '
+  utter_ask_auth_name:
+  - text: 'Please enter your username '
+  utter_ask_vital_signs:
+  - text: Which vital sign would you want to diagnose?
+  utter_temperature:
+  - text: |-
+      Recent Temperature Reading:{temperature}
+       Maximum: {maxtempr}
+       Minimum: {mintempr}
+       Mean: {avgtempr} 
+  utter_pressure:
+  - text: |-
+      Recent Blood Pressure Reading:{pressure}
+       Maximum: {maxspo2}
+       Minimum: {minspo2}
+       Mean: {avgspo2} 
+  utter_heart:
+  - text: |-
+      Recent Heart Rate Reading:{heart}
+       Maximum: {maxhr}
+       Minimum: {minhr}
+       Mean: {avghr} 
+  utter_health_status:
+  - text: The Health Condition is {health_status}
+  utter_abnormal_response:
+  - text: '{abnormal_response}'
+  utter_normal_response:
+  - text: '{normal_response}'
+  utter_no_data:
+  - text: '{no_data}'
+  utter_temp_suggest:
+  - text: '{tempr_suggest}'
+  utter_resp_suggest:
+  - text: '{resp_suggest}'
+  utter_hr_suggest:
+  - text: '{hr_suggest}'
+  utter_pressure_suggest:
+  - text: '{spo2_suggest}'
+  utter_exceed_tempr:
+  - text: The Current temperature reading exceed {tempr}
+  utter_less_tempr:
+  - text: The Current temperature reading is {tempr}
+  utter_exceed_resp:
+  - text: The Current respiration reading exceed to {resp}
+  utter_less_resp:
+  - text: The Current respiration reading is {resp}
+  utter_exceed_hr:
+  - text: The Current heart rate reading exceed to {hr}
+  utter_less_hr:
+  - text: The Current respiration reading is {hr}
+  utter_high_pressure:
+  - text: The current blood pressure reading is {spo2}
+  utter_low_pressure:
+  - text: The current blood pressure reading is {spo2}
+  utter_respiration:
+  - text: |-
+      Recent Respiration Rate Reading:{respiration}
+       Maximum: {maxresp}
+       Minimum: {minresp}
+       Mean: {avgresp} 
+  utter_all:
+  - text: |-
+      Recent Vital Signs Readings:
+       {all}
+  utter_none:
+  - text: '{none}'
+  utter_user_success:
+  - text: 'You have been registered successfully with username:  {user_name}'
+  utter_user_fail:
+  - text: Registration of {user_name} failed
+  utter_auth_success:
+  - text: 'Greate! You are successfully authenticated username: {auth_name} user_code {auth_code}'
+  utter_auth_fail:
+  - text: 'Error Wrong username: {auth_name} or user_code {auth_code} '
+  utter_check_device:
+  - text: To Proceed, Please Make sure you attach the device to the patient.
+  utter_what_to_do:
+  - buttons:
+    - payload: /request_diagnosis
+      title: Diagnosis
+    - payload: /prescription
+      title: Prescription
+    - payload: /deny
+      title: None
+    text: What would you like to do?
+  utter_ask_user:
+  - buttons:
+    - payload: /have_account
+      title: Yes
+    - payload: /have_account
+      title: No
+    text: Do you have an Account?
 actions:
-  - action_diagnosis_submit
-  - utter_out_of_scope
-  - action_authentication_submit
-  - check_heath_status_action
-  - add_user_action
-  - diagnostic_response_action
-  - check_abnormal_vital_signs_action
-  - suggested_action
-
+- action_diagnosis_submit
+- utter_out_of_scope
+- action_authentication_submit
+- check_heath_status_action
+- add_user_action
+- diagnostic_response_action
+- check_abnormal_vital_signs_action
+- suggested_action
 forms:
   authentication_form:
     required_slots:
       auth_code:
-        - type: from_entity
-          entity: number
-          intent: set_code
-
+      - entity: number
+        intent: set_code
+        type: from_entity
   diagnosis_forms:
     required_slots:
       vital_signs:
-        - type: from_entity
-          entity: vital_sign
-
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+      - entity: vital_sign
+        type: from_entity
+e2e_actions: []

@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,8 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
+    - HI
+    - Hi
 - intent: goodbye
   examples: |
     - good afternoon
@@ -30,7 +30,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -39,13 +38,11 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: set_code
   examples: |
     - my code is 123?
     - 123
     - this is my code 1234
-
 - intent: deny
   examples: |
     - no
@@ -55,7 +52,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: user_diagnostic_enquiries
   examples: |
     - Diagnosing Patient
@@ -66,8 +62,14 @@ nlu:
     - Health check
     - Can you tel me about the patient?
     - How is the patient?
-    
-
+    - diagnose the patient
+    - diagnosing patient
+    - diagnosiing patient
+    - check patient
+    - diagnose patient
+    - check the patient condition
+    - Diagnosing patient
+    - How is the patient
 - intent: user_what_is_wrong
   examples: |
     - Wrong?
@@ -80,8 +82,12 @@ nlu:
     - Anything wrong with the patient
     - What is the issue with with patient?
     - Something wrong with the patient
-    
-
+    - what is wrong
+    - what is wrong with patient
+    - what is wrong?
+    - what is the problem?
+    - what's wrong?
+    - What is wrong
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
@@ -105,68 +111,61 @@ nlu:
     - what medical attention is needed?
     - is there any medical attention needed
     - what am i supposed to do
-    
-
-
+    - what i can do
+    - can you tel me how to fix it?
+    - suggestion?
+    - What can i do
 - intent: have_account
   examples: |
     - I have an account
     - Yes I have
     - I have
-
-
-
 - intent: vital_signs
   examples: |
-    - i want to check [temperature]{"entity": "vital_sign", "value": "temperature"}
-    - i want to check [Temp]{"entity": "vital_sign", "value": "Temp"}
-    - i want to check [Heat]{"entity": "vital_sign", "value": "Heat"}
-    - i want to check [heart]{"entity": "vital_sign", "value": "heart"}
-    - i want to check [Heart]{"entity": "vital_sign", "value": "Heart"}
-    - i want to check [Pressure]{"entity": "vital_sign", "value": "Pressure"}
-    - i want to check [pressure]{"entity": "vital_sign", "value": "pressure"}
-    - i want to check [Hypertension]{"entity": "vital_sign", "value": "Hypertension"}
-    - i want to check [all]{"entity": "vital_sign", "value": "all"}
-    - [all]{"entity": "vital_sign", "value": "all"}
-    - [respiration]{"entity": "vital_sign", "value": "respiration"}
-    - [Respiration]{"entity": "vital_sign", "value": "Respiration"}
-    - [Hypertension]{"entity": "vital_sign", "value": "Hypertension"}
-    - [pressure]{"entity": "vital_sign", "value": "pressure"}
-    - [Pressure]{"entity": "vital_sign", "value": "Pressure"}
-    - [temperature]{"entity": "vital_sign", "value": "temperature"}
-    - [Temperature]{"entity": "vital_sign", "value": "Temperature"}
-    - [Temp]{"entity": "vital_sign", "value": "Temp"}
-    - [temp]{"entity": "vital_sign", "value": "temp"}
-
+    - i want to check [temperature](vital_sign)
+    - i want to check [Temp](vital_sign)
+    - i want to check [Heat](vital_sign)
+    - i want to check [heart](vital_sign)
+    - i want to check [Heart](vital_sign)
+    - i want to check [Pressure](vital_sign)
+    - i want to check [pressure](vital_sign)
+    - i want to check [Hypertension](vital_sign)
+    - i want to check [all](vital_sign)
+    - [all](vital_sign)
+    - [respiration](vital_sign)
+    - [Respiration](vital_sign)
+    - [Hypertension](vital_sign)
+    - [pressure](vital_sign)
+    - [Pressure](vital_sign)
+    - [temperature](vital_sign)
+    - [Temperature](vital_sign)
+    - [Temp](vital_sign)
+    - [temp](vital_sign)
+    - heart rate
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
-
+    - why?
 - intent: request_diagnosis
   examples: |
     - diagnosis
     - Diagnosis
     - Check Vital Signs
-
+    - patient diagnosis
 - intent: add_user
   examples: |
     - add user
     - register user
-      
-
 - intent: prescription
   examples: |
     - prescription
     - Prescription
     - Treating the patient
     - prescribe the patient
-
 - intent: start_support
   examples: |
     - Start support
     - start
-     - Ok

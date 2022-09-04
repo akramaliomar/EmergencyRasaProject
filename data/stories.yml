@@ -1,52 +1,34 @@
 version: "2.0"
-
 stories:
-
-#- story: hapy path greeting
-#  steps:
-#    - intent: greet
-#    - action: utter_medbot_greet
-#    - action: utter_medbot_intro
-#    - action: utter_ask_for_help
-#    - intent: start_support
-#    - action: utter_ask_user
-#    - intent: deny
-#    - action: utter_goodbye
-
-
 - story: hapy path greeting
   steps:
-    - intent: greet
-    - action: utter_medbot_greet
-    - action: utter_medbot_intro
-    - action: utter_ask_for_help
-    - intent: user_diagnostic_enquiries
-    - action: diagnostic_response_action
-
-
-
+  - intent: greet
+  - action: utter_medbot_greet
+  - action: utter_medbot_intro
+  - action: utter_ask_for_help
+  - intent: user_diagnostic_enquiries
+  - action: diagnostic_response_action
 - story: hapy path prescription
   steps:
-    - intent: prescription
-    - action: check_heath_status_action
-
+  - intent: prescription
+  - action: check_heath_status_action
 - story: hapy path what is wrong
   steps:
-    - intent: user_what_is_wrong
-    - action: check_abnormal_vital_signs_action
-    - intent: user_what_is_suggested
-    - action: suggested_action
-
+  - intent: user_what_is_wrong
+  - action: check_abnormal_vital_signs_action
+  - intent: user_what_is_suggested
+  - action: suggested_action
 - story: hapy path add user
   steps:
-    - intent: add_user
-    - action: add_user_action
-
-#- story: hapy path authentication
-#  steps:
-#  - intent: vital_signs
-#    entities:
-#    - vital_sign: 'temperature'
-#  - slot_was_set:
-#    - vital_sign: 'temperature'
-#  - action: utter_vital_sign
+  - intent: add_user
+  - action: add_user_action
+- story: Story from Conversation ID 6da4f3cb9d8543fcb2fef4cbbbcdabc7
+  steps:
+  - intent: greet
+  - action: utter_medbot_greet
+  - action: utter_medbot_intro
+  - action: utter_ask_for_help
+  - intent: user_diagnostic_enquiries
+  - action: diagnostic_response_action
+  - intent: user_what_is_wrong
+  - action: check_abnormal_vital_signs_action
