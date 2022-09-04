@@ -47,6 +47,13 @@ def db_aggregated_vs():
             else:
                 get_vital_signs = "No vital signs in DB"
             return get_vital_signs
+def db_get_rand_vs():
+    conn = open_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            result = cursor.execute("SELECT *  FROM vital_sign_table ORDER BY RAND ( ) LIMIT 1  ")
+            vital_signs = cursor.fetchall()
+            return vital_signs[0]["output"]
 
 
 def db_add_vs(v_signs):

@@ -218,7 +218,7 @@ class ActionDiagnosticResponseAction(Action):
                                          abnormal_response=str(
                                              "The Patient condition is not normal. The patient needs an agent medical "
                                              "attention"))
-            elif output == str("normal"):
+            elif output == str("Normal"):
                 dispatcher.utter_message(template="utter_normal_response",
                                          normal_response=str("The Patient condition is Normal."))
         else:
