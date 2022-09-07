@@ -58,7 +58,6 @@ nlu:
     - Diagnosing
     - Checking Patient condition
     - Patient check
-    - Check Vital Sign
     - Health check
     - Can you tel me about the patient?
     - How is the patient?
@@ -70,6 +69,12 @@ nlu:
     - check the patient condition
     - Diagnosing patient
     - How is the patient
+    - Anomalies
+    - Vital Signs anomalies
+    - Identify anomalies
+    - Check anomalies
+    - check vital signs anomalies
+
 - intent: user_what_is_wrong
   examples: |
     - Wrong?
@@ -88,6 +93,10 @@ nlu:
     - what is the problem?
     - what's wrong?
     - What is wrong
+    - Vital Signs reading
+    - Check Vital Sign
+    
+
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
