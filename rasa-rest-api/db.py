@@ -28,7 +28,7 @@ def db_get_vs():
     conn = open_connection()
     with conn:
         with conn.cursor() as cursor:
-            result = cursor.execute('SELECT * FROM vital_sign_table ORDER BY tb_vital_sign_id DESC LIMIT 1;')
+            result = cursor.execute('SELECT *FROM vital_sign_table ORDER BY RAND ( ) LIMIT 1;')
             vital_signs = cursor.fetchall()
             if result > 0:
                 get_vital_signs = jsonify(vital_signs)
@@ -53,7 +53,7 @@ def db_get_rand_vs():
         with conn.cursor() as cursor:
             result = cursor.execute("SELECT *  FROM vital_sign_table ORDER BY RAND ( ) LIMIT 1  ")
             vital_signs = cursor.fetchall()
-            return vital_signs[0]["output"]
+            return jsonify(vital_signs)
 
 
 def db_add_vs(v_signs):

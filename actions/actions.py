@@ -169,30 +169,31 @@ class ActionCheckAbnormalStatus(Action):
             resp = vital_signs[0]["resp"]
             hr = vital_signs[0]["hr"]
             spo2 = vital_signs[0]["spo2"]
-            if tempr >= 30:
-                dispatcher.utter_message(template="utter_exceed_tempr",
-                                         tempr=str(tempr))
-            elif tempr <= 20:
-                dispatcher.utter_message(template="utter_less_tempr",
-                                         tempr=str(tempr))
-            if resp >= 30:
-                dispatcher.utter_message(template="utter_exceed_resp",
-                                         resp=str(resp))
-            elif resp <= 20:
-                dispatcher.utter_message(template="utter_less_resp",
-                                         resp=str(resp))
-            if hr >= 30:
-                dispatcher.utter_message(template="utter_exceed_hr",
-                                         hr=str(hr))
-            elif hr <= 20:
-                dispatcher.utter_message(template="utter_less_hr",
-                                         hr=str(hr))
-            if spo2 >= 90:
-                dispatcher.utter_message(template="utter_high_pressure",
-                                         spo2=str(spo2))
-            elif spo2 <= 60:
-                dispatcher.utter_message(template="utter_low_pressure",
-                                         spo2=str(spo2))
+            tempStatus = "Normal"
+            hrStatus = "Normal"
+            spo2Status = "Normal"
+            respStatus = "Normal"
+            if tempr >= 30 or tempr <= 20:
+                tempStatus = "Abnormal"
+            dispatcher.utter_message(template="utter_exceed_tempr",
+                                         tempr=str(tempr), tempStatus=tempStatus)
+
+            if resp >= 30 or resp <= 20:
+                respStatus = "Abnormal"
+            dispatcher.utter_message(template="utter_exceed_resp",
+                                         resp=str(resp), respStatus=respStatus)
+            if hr >= 30 or hr <= 20:
+                hrStatus = "Abnormal"
+
+            dispatcher.utter_message(template="utter_exceed_hr",
+                                         hr=str(hr), hrStatus=hrStatus)
+
+            if spo2 >= 90 or spo2 <= 60:
+                spo2Status = "Abnormal"
+
+            dispatcher.utter_message(template="utter_high_pressure",
+                                         spo2=str(spo2), spo2Status=spo2Status)
+
             return {"temp_reading": tempr, "sop2_reading": spo2, "heart_reading": hr, "resp_reading": resp}
         else:
             dispatcher.utter_message(template="utter_no_data", no_data="No data available")
@@ -211,7 +212,7 @@ class ActionDiagnosticResponseAction(Action):
     ) -> List[Dict[Text, Any]]:
         prediction = fetch_heath_status()
         if len(prediction) > 0:
-            output = prediction["msg"]
+            output = prediction[0]["output"]
 
             if output == str("Abnormal"):
                 dispatcher.utter_message(template="utter_abnormal_response",
@@ -338,7 +339,7 @@ class ActionSubmit(Action):
 
         elif tracker.get_slot('vital_signs') == "all":
             dispatcher.utter_message(template="utter_all",
-                                     all="Temp: " + tempr + " Pressure: " + spo2 + " Heart rate: " + hr + " Respiration: " + resp)
+                                     all="Temp: " + tempr + " C Oxygen Saturation: " + spo2 + " % Heart rate: " + hr + " bpm Respiration: " + resp+" bpm")
 
         else:
             dispatcher.utter_message(template="utter_none",

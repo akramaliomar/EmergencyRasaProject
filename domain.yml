@@ -114,9 +114,11 @@ responses:
   - text: I am designed to to help you diagnose and prescribe the patient
 
   utter_service_list:
-  - text: "In this chatbot, you can get the following services:\n1- Diagnosing Patient\n 2- Patient Treatment Recommendations"
+  - text: "In this chatbot, you can get the following services:\n1- I can give you the recent vital signs readings   \n
+   2- I can Identify anomalies of the detected vital signs of the patient \n
+   3- I can recommend you what to do when the health status of the patient is not normal "
   utter_ask_for_help:
-  - text: How can I help you?
+  - text: Now can you tel me what would you like to ask me to do for you?
   - text: Which Service Would you like to have?
 
   utter_ask_start:
@@ -137,23 +139,23 @@ responses:
   - text: Which vital sign would you want to diagnose?
   utter_temperature:
   - text: |-
-      Recent Temperature Reading:{temperature}
-       Maximum: {maxtempr}
-       Minimum: {mintempr}
-       Mean: {avgtempr} 
+      Recent Temperature Reading:{temperature} C
+       Maximum: {maxtempr} C
+       Minimum: {mintempr} C
+       Mean: {avgtempr} C
   utter_pressure:
   - text: |-
-      Recent Blood Pressure Reading:{pressure}
-       Maximum: {maxspo2}
-       Minimum: {minspo2}
-       Mean: {avgspo2} 
+      Recent Blood Oxygen Saturation Reading:{pressure} %
+       Maximum: {maxspo2} %
+       Minimum: {minspo2} %
+       Mean: {avgspo2} %
 
   utter_heart:
   - text: |-
-      Recent Heart Rate Reading:{heart}
-       Maximum: {maxhr}
-       Minimum: {minhr}
-       Mean: {avghr} 
+      Recent Heart Rate Reading:{heart} bpm
+       Maximum: {maxhr} bpm
+       Minimum: {minhr} bpm
+       Mean: {avghr} bpm
   utter_health_status:
   - text: The Health Condition is {health_status}
   utter_abnormal_response:
@@ -171,27 +173,27 @@ responses:
   utter_pressure_suggest:
   - text: '{spo2_suggest}'
   utter_exceed_tempr:
-  - text: The Current temperature reading exceed {tempr}
+  - text: 'The Current temperature reading {tempr} C Status: {tempStatus}'
   utter_less_tempr:
-  - text: The Current temperature reading is {tempr}
+  - text: 'The Current temperature reading is {tempr} C Status: {tempStatus}'
   utter_exceed_resp:
-  - text: The Current respiration reading exceed to {resp}
+  - text: 'The Current respiration reading {resp} bpm Status: {respStatus}'
   utter_less_resp:
-  - text: The Current respiration reading is {resp}
+  - text: 'The Current respiration reading is {resp} bpm Status: {respStatus}'
   utter_exceed_hr:
-  - text: The Current heart rate reading exceed to {hr}
+  - text: 'The Current heart rate reading is {hr} bpm Status: {hrStatus}'
   utter_less_hr:
-  - text: The Current respiration reading is {hr}
+  - text: 'The Current Heart rate reading is {hr} bpm Status: {hrStatus}'
   utter_high_pressure:
-  - text: The current blood pressure reading is {spo2}
+  - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
   utter_low_pressure:
-  - text: The current blood pressure reading is {spo2}
+  - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
   utter_respiration:
   - text: |-
-      Recent Respiration Rate Reading:{respiration}
-       Maximum: {maxresp}
-       Minimum: {minresp}
-       Mean: {avgresp} 
+      Recent Respiration Rate Reading:{respiration} bpm
+       Maximum: {maxresp} bpm
+       Minimum: {minresp} bpm
+       Mean: {avgresp} bpm
   utter_all:
   - text: |-
       Recent Vital Signs Readings:

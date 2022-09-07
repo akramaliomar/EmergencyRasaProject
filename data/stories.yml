@@ -5,6 +5,7 @@ stories:
   - intent: greet
   - action: utter_medbot_greet
   - action: utter_medbot_intro
+  - action: utter_service_list
   - action: utter_ask_for_help
   - intent: user_diagnostic_enquiries
   - action: diagnostic_response_action
@@ -27,6 +28,7 @@ stories:
   - intent: greet
   - action: utter_medbot_greet
   - action: utter_medbot_intro
+  - action: utter_service_list
   - action: utter_ask_for_help
   - intent: user_diagnostic_enquiries
   - action: diagnostic_response_action
