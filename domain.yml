@@ -1,95 +1,63 @@
 version: '2.0'
-config:
-  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- greet:
-    use_entities: true
-- goodbye:
-    use_entities: true
-- affirm:
-    use_entities: true
-- deny:
-    use_entities: true
-- bot_challenge:
-    use_entities: true
-- start_support:
-    use_entities: true
-- request_diagnosis:
-    use_entities: true
-- prescription:
-    use_entities: true
-- add_user:
-    use_entities: true
-- have_account:
-    use_entities: true
-- user_diagnostic_enquiries:
-    use_entities: true
-- user_what_is_wrong:
-    use_entities: true
-- user_what_is_suggested:
-    use_entities: true
+- greet
+- goodbye
+- affirm
+- deny
+- bot_challenge
+- start_support
+- request_diagnosis
+- prescription
+- add_user
+- have_account
+- user_diagnostic_enquiries
+- user_what_is_wrong
+- user_what_is_suggested
 - set_code:
     use_entities:
     - number
 - vital_signs:
     use_entities:
     - vital_sign
-- nlu_fallback:
-    use_entities: true
+- nlu_fallback
 entities:
 - vital_sign
 - number
 slots:
   vital_signs:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   auth_code:
-    type: rasa.shared.core.slots.AnySlot
-    initial_value: null
-    auto_fill: true
+    type: any
     influence_conversation: false
   auth_name:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   temp_reading:
-    type: rasa.shared.core.slots.FloatSlot
-    initial_value: null
-    auto_fill: true
+    type: float
     influence_conversation: true
     max_value: 1.0
     min_value: 0.0
   sop2_reading:
-    type: rasa.shared.core.slots.FloatSlot
-    initial_value: null
-    auto_fill: true
+    type: float
     influence_conversation: true
     max_value: 1.0
     min_value: 0.0
   heart_reading:
-    type: rasa.shared.core.slots.FloatSlot
-    initial_value: null
-    auto_fill: true
+    type: float
     influence_conversation: true
     max_value: 1.0
     min_value: 0.0
   resp_reading:
-    type: rasa.shared.core.slots.FloatSlot
-    initial_value: null
-    auto_fill: true
+    type: float
     influence_conversation: true
     max_value: 1.0
     min_value: 0.0
   requested_slot:
-    type: rasa.shared.core.slots.UnfeaturizedSlot
-    initial_value: null
-    auto_fill: true
+    type: unfeaturized
     influence_conversation: false
 responses:
   utter_greet:
@@ -112,15 +80,15 @@ responses:
   - text: Hello, I am Physician Bot
   utter_medbot_intro:
   - text: I am designed to to help you diagnose and prescribe the patient
-
   utter_service_list:
-  - text: "In this chatbot, you can get the following services:\n1- I can give you the recent vital signs readings   \n
-   2- I can Identify anomalies of the detected vital signs of the patient \n
-   3- I can recommend you what to do when the health status of the patient is not normal "
+  - text: |-
+      In this chatbot, you can get the following services:
+      1- I can give you the recent vital signs readings   
+       2- I can Identify anomalies of the detected vital signs of the patient 
+       3- I can recommend you what to do when the health status of the patient is not normal 
   utter_ask_for_help:
   - text: Now can you tel me what would you like to ask me to do for you?
   - text: Which Service Would you like to have?
-
   utter_ask_start:
   - buttons:
     - payload: /start_support
@@ -128,9 +96,6 @@ responses:
     - payload: /deny
       title: No, Thanks
     text: Shall we get started?
-
-
-
   utter_ask_auth_code:
   - text: 'Please enter your code '
   utter_ask_auth_name:
@@ -149,7 +114,6 @@ responses:
        Maximum: {maxspo2} %
        Minimum: {minspo2} %
        Mean: {avgspo2} %
-
   utter_heart:
   - text: |-
       Recent Heart Rate Reading:{heart} bpm
@@ -247,4 +211,3 @@ forms:
       vital_signs:
       - entity: vital_sign
         type: from_entity
-e2e_actions: []

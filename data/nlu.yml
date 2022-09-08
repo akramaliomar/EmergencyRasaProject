@@ -17,6 +17,8 @@ nlu:
     - good afternoon
     - HI
     - Hi
+    - Hallo
+    - Hello
 - intent: goodbye
   examples: |
     - good afternoon
@@ -30,6 +32,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - Thank you
 - intent: affirm
   examples: |
     - yes
@@ -74,7 +77,7 @@ nlu:
     - Identify anomalies
     - Check anomalies
     - check vital signs anomalies
-
+    - Am I ok?
 - intent: user_what_is_wrong
   examples: |
     - Wrong?
@@ -95,8 +98,11 @@ nlu:
     - What is wrong
     - Vital Signs reading
     - Check Vital Sign
-    
-
+    - vital sign readings
+    - what is wrong with this patient
+    - do I have a problem?
+    - recent vital signs
+    - can I get the recent vital signs
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
@@ -124,6 +130,7 @@ nlu:
     - can you tel me how to fix it?
     - suggestion?
     - What can i do
+    - what to do
 - intent: have_account
   examples: |
     - I have an account
