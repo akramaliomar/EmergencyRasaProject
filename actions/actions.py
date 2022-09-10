@@ -12,7 +12,7 @@
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
-from actions.vital_sign_rest_api import fetch_vital_signs, fetch_aggr_signs, fetch_heath_status
+from actions.vital_sign_rest_api import fetch_vital_signs, fetch_aggr_signs, fetch_heath_status, prediction
 # from actions.db import add_user, authenticate_user
 from typing import Dict, Text, List, Optional, Any
 from rasa_sdk.forms import FormValidationAction
@@ -75,6 +75,16 @@ class ValidateAuthenticationForm(Action):
 #
 #         # All slots are filled.
 #         return [SlotSet("requested_slot", None)]
+
+
+
+class ActionCheckPrediction(Action):
+    def name(self) -> Text:
+        return "check_prediction_action"
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        dispatcher.utter_message(template="utter_prediction", prediction = prediction())
 
 
 class ActionSubmit(Action):

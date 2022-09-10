@@ -185,3 +185,7 @@ nlu:
   examples: |
     - Start support
     - start
+- intent: predict
+  examples: |
+    - Predictions
+    - Predict

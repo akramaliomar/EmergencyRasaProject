@@ -34,3 +34,10 @@ stories:
   - action: diagnostic_response_action
   - intent: user_what_is_wrong
   - action: check_abnormal_vital_signs_action
+
+- story: Story Prediction
+  steps:
+  - intent: predict
+  - action: check_prediction_action
+
+

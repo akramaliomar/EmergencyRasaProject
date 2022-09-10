@@ -16,6 +16,7 @@ intents:
 - user_diagnostic_enquiries
 - user_what_is_wrong
 - user_what_is_suggested
+- predict
 - set_code:
     use_entities:
     - number
@@ -89,6 +90,10 @@ responses:
   utter_ask_for_help:
   - text: Now can you tel me what would you like to ask me to do for you?
   - text: Which Service Would you like to have?
+
+  utter_prediction:
+  - text: Prediction is {prediction}
+
   utter_ask_start:
   - buttons:
     - payload: /start_support
@@ -199,6 +204,7 @@ actions:
 - diagnostic_response_action
 - check_abnormal_vital_signs_action
 - suggested_action
+- check_prediction_action
 forms:
   authentication_form:
     required_slots:
