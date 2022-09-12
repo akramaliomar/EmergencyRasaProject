@@ -12,102 +12,10 @@
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
-from actions.vital_sign_rest_api import fetch_vital_signs, fetch_aggr_signs, fetch_heath_status, prediction
+from actions.vital_sign_rest_api import fetch_vital_signs, fetch_aggr_signs, prediction
 # from actions.db import add_user, authenticate_user
 from typing import Dict, Text, List, Optional, Any
 from rasa_sdk.forms import FormValidationAction
-
-#
-# class ActionAddUser(Action):
-#     def name(self) -> Text:
-#         return "add_user_action"
-#
-#     def run(
-#             self,
-#             dispatcher,
-#             tracker: Tracker,
-#             domain: "DomainDict",
-#     ) -> List[Dict[Text, Any]]:
-#         # users = add_user("ali", 2345)
-#         users = add_user("ali", 2345)
-#         if users == "success":
-#             dispatcher.utter_message(template="utter_user_success", user_name="user_name")
-#         else:
-#             dispatcher.utter_message(template="utter_user_fail", user_name="user_name")
-
-
-class ValidateAuthenticationForm(Action):
-    def name(self) -> Text:
-        return "validate_authentication_form"
-
-    async def required_slots(
-            self,
-            slots_mapped_in_domain: List[Text],
-            dispatcher: "CollectingDispatcher",
-            tracker: "Tracker",
-            domain: "DomainDict",
-    ) -> Optional[List[Text]]:
-        required_slots = slots_mapped_in_domain + ["auth_name"]
-        return required_slots
-
-    async def extract_auth_name(
-            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        text_of_last_user_message = tracker.latest_message.get("text")
-        # sit_outside = "outdoor" in text_of_last_user_message
-
-        return {"auth_name": text_of_last_user_message}
-
-
-# class ValidateRestaurantForm(Action):
-#     def name(self) -> Text:
-#         return "validate_authentication_form"
-#
-#     def run(
-#             self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-#     ) -> List[EventType]:
-#         required_slots = ["auth_code"]
-#
-#         for slot_name in required_slots:
-#             if tracker.slots.get(slot_name) is None:
-#                 # The slot is not filled yet. Request the user to fill this slot next.
-#                 return [SlotSet("requested_slot", slot_name)]
-#
-#         # All slots are filled.
-#         return [SlotSet("requested_slot", None)]
-
-
-
-class ActionCheckPrediction(Action):
-    def name(self) -> Text:
-        return "check_prediction_action"
-    def run(
-            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> List[EventType]:
-        dispatcher.utter_message(template="utter_prediction", prediction = prediction())
-
-
-class ActionSubmit(Action):
-    def name(self) -> Text:
-        return "action_authentication_submit"
-
-    def run(
-            self,
-            dispatcher,
-            tracker: Tracker,
-            domain: "DomainDict",
-    ) -> List[Dict[Text, Any]]:
-        # ucount = authenticate_user(tracker.get_slot("auth_name"), tracker.get_slot("auth_code"))
-        ucount = 1
-        if ucount == 1:
-            dispatcher.utter_message(template="utter_auth_success",
-                                     auth_code=tracker.get_slot("auth_code"), uth_name=tracker.get_slot("auth_name"))
-        else:
-            dispatcher.utter_message(template="utter_auth_fail",
-                                     auth_code=tracker.get_slot("auth_code"), auth_name=tracker.get_slot("auth_name"))
-        # dispatcher.utter_message(template="utter_details_thanks",
-        #                          code=tracker.get_slot("auth_code"))
-
 
 class ActionCheckStatus(Action):
     def name(self) -> Text:
@@ -119,45 +27,41 @@ class ActionCheckStatus(Action):
             tracker: Tracker,
             domain: "DomainDict",
     ) -> List[Dict[Text, Any]]:
-        # dispatcher.utter_message(template="utter_health_status", health_status="dssddsdsds")
-        prediction = fetch_heath_status()
-        if len(prediction) > 0:
-            output = prediction["msg"]
-
+        vital_signs = fetch_vital_signs()
+        if len(vital_signs) > 0:
+            tempr = vital_signs[0]["tempr"]
+            resp = vital_signs[0]["resp"]
+            hr = vital_signs[0]["hr"]
+            spo2 = vital_signs[0]["spo2"]
+            output = prediction(hr, spo2, resp, tempr)
             dispatcher.utter_message(template="utter_health_status",
                                      health_status=str(output))
             if output == str("Abnormal"):
-                vital_signs = fetch_vital_signs()
-                tempr = vital_signs[0]["tempr"]
-                resp = vital_signs[0]["resp"]
-                hr = vital_signs[0]["hr"]
-                spo2 = vital_signs[0]["spo2"]
-                if tempr >= 30:
+                if tempr >= 37.5:
                     dispatcher.utter_message(template="utter_exceed_tempr",
                                              tempr=str(tempr))
-                elif tempr <= 20:
+                elif tempr <= 36:
                     dispatcher.utter_message(template="utter_less_tempr",
                                              tempr=str(tempr))
 
-                if resp >= 30:
+                if resp >= 20:
                     dispatcher.utter_message(template="utter_exceed_resp",
                                              resp=str(resp))
-                elif resp <= 20:
+                elif resp <= 12:
                     dispatcher.utter_message(template="utter_less_resp",
                                              resp=str(resp))
-
-                if hr >= 30:
+                if hr >= 80:
                     dispatcher.utter_message(template="utter_exceed_hr",
                                              hr=str(hr))
-                elif hr <= 20:
+                elif hr <= 60:
                     dispatcher.utter_message(template="utter_less_hr",
                                              hr=str(hr))
-                if spo2 >= 90:
+                if spo2 <= 90:
                     dispatcher.utter_message(template="utter_high_pressure",
                                              spo2=str(spo2))
-                elif spo2 <= 60:
-                    dispatcher.utter_message(template="utter_low_pressure",
-                                             spo2=str(spo2))
+                # elif spo2 <= 60:
+                #     dispatcher.utter_message(template="utter_low_pressure",
+                #                              spo2=str(spo2))
 
         else:
             dispatcher.utter_message(template="utter_no_data", no_data="No data available")
@@ -183,22 +87,22 @@ class ActionCheckAbnormalStatus(Action):
             hrStatus = "Normal"
             spo2Status = "Normal"
             respStatus = "Normal"
-            if tempr >= 30 or tempr <= 20:
+            if tempr >= 37.5 or tempr <= 36:
                 tempStatus = "Abnormal"
             dispatcher.utter_message(template="utter_exceed_tempr",
                                          tempr=str(tempr), tempStatus=tempStatus)
 
-            if resp >= 30 or resp <= 20:
+            if resp >= 20 or resp <= 12:
                 respStatus = "Abnormal"
             dispatcher.utter_message(template="utter_exceed_resp",
                                          resp=str(resp), respStatus=respStatus)
-            if hr >= 30 or hr <= 20:
+            if hr >= 80 or hr <= 60:
                 hrStatus = "Abnormal"
 
             dispatcher.utter_message(template="utter_exceed_hr",
                                          hr=str(hr), hrStatus=hrStatus)
 
-            if spo2 >= 90 or spo2 <= 60:
+            if spo2 <= 90:
                 spo2Status = "Abnormal"
 
             dispatcher.utter_message(template="utter_high_pressure",
@@ -220,9 +124,13 @@ class ActionDiagnosticResponseAction(Action):
             tracker: Tracker,
             domain: "DomainDict",
     ) -> List[Dict[Text, Any]]:
-        prediction = fetch_heath_status()
-        if len(prediction) > 0:
-            output = prediction[0]["output"]
+        vital_signs = fetch_vital_signs()
+        if len(vital_signs) > 0:
+            tempr = vital_signs[0]["tempr"]
+            resp = vital_signs[0]["resp"]
+            hr = vital_signs[0]["hr"]
+            spo2 = vital_signs[0]["spo2"]
+            output = prediction(hr, spo2, resp, tempr)
 
             if output == str("Abnormal"):
                 dispatcher.utter_message(template="utter_abnormal_response",
@@ -255,104 +163,56 @@ class ActionSuggestion(Action):
             spo2 = vital_signs[0]["spo2"]
             if tempr >= 30:
                 dispatcher.utter_message(template="utter_temp_suggest",
-                                         tempr_suggest="Please follow the steps below to reduce the body heat")
+                                         tempr_suggest="Below are the best Practice to low body temperature at Home\n"
+                                                       "1- getting plenty of rest\n"
+                                                       "2- drinking water and juices to stay hydrated \n"
+                                                       "3- wearing comfortable, loose clothes\n"
+                                                       "4- keeping rooms at a cool, comfortable temperature"
+                                                       "")
             elif tempr <= 20:
                 dispatcher.utter_message(template="utter_temp_suggest",
-                                         tempr_suggest="Please follow the steps below to increase the body heat")
+                                         tempr_suggest="Below are the best Practice to handle lower body temperature at Home\n"
+                                                       "1- Recognize the signs of hypothermia\n"
+                                                       "2- Get out of the cold. If your body temperature is dropping dramatically, you need to get out of the cold. If you are outdoors, find a warm room or shelter\n"
+                                                       "3- Remove wet clothes. If your clothes are wet, then remove them and put on some dry clothes.\n"
+                                                       "4- Rely on skin-to-skin contact. If you can't get indoors, curl up with another person under loose, dry layers of blankets or clothing\n"
+                                                       "5- Warm the center of the body first")
             if resp >= 30:
                 dispatcher.utter_message(template="utter_resp_suggest",
-                                         resp_suggest="Please follow the steps for breathing relaxation")
+                                         resp_suggest="The following are the best practice for breathing relaxation\n"
+                                                      "1- Deep breathing: Breathing in deeply through the abdomen can help someone manage their breathlessness\n"
+                                                      "2- Pursed lip breathing: helps reduce breathlessness by slowing the pace of a person’s breathing\n"
+                                                      "3- Finding a comfortable and supported position\n"
+                                                      "4- Using a fan: using a handheld fan to blow air across the nose and face could reduce the sensation of breathlessness\n"
+                                                      "5- Inhaling steam: help keep a person’s nasal passages clear, which can help them breathe more easily\n"
+                                                      "6- Drinking black coffee: help ease breathlessness, as the caffeine in it can reduce tightness in the muscles in a person’s airway\n"
+                                                      "7- Eating fresh ginger: Eating fresh ginger, or adding some to hot water as a drink, may help reduce shortness of breath that occurs due to a respiratory infection")
             elif resp <= 20:
                 dispatcher.utter_message(template="utter_resp_suggest",
-                                         resp_suggest="Please follow the steps for breathing relaxation")
+                                         resp_suggest="The following are best practicies to reduce rapid or deep breathing\n"
+                                                      "1- Breathe through pursed lips\n"
+                                                      "2- Breathe slowly into a paper bag or cupped hands\n"
+                                                      "3- Attempt to breathe into your belly (diaphragm) rather than your chest\n"
+                                                      "4- Hold your breath for 10 to 15 seconds at a time")
             if hr >= 30:
                 dispatcher.utter_message(template="utter_hr_suggest",
-                                         hr_suggest="Please follow the steps to lower the heart rate")
+                                         hr_suggest="The following are the best practice to relieve the fast heart beating\n"
+                                                    "1- Manage your stress through relaxation\n"
+                                                    "2- Drink enough water\n"
+                                                    "3- Avoid stimulants like tobacco products, heavy alcohol\n"
+                                                    "4- Eat a banalanced diet\n"
+                                                    "5- Exercise regularly")
             elif hr <= 20:
                 dispatcher.utter_message(template="utter_hr_suggest",
-                                         hr_suggest="Please follow the steps for improving the heart rate")
-            if spo2 >= 90:
+                                         hr_suggest="Please follow the steps for improving the heart rate\n"
+                                                    "1- Eat Cayenne pepper: It is a natural blood regulator and a heart tonic. It also helps remove congestion in the circulatory system as well as stimulate the body\n"
+                                                    "2- Eat Ginger: The stimulant properties that a ginger contains are quite similar to that of a cayenne pepper\n"
+                                                    "3- Stress Reduction: You can reduce stress by meditating, having excellent sleep patterns, and engaging in physical activity\n"
+                                                    "4- Garlic contains natural properties that enable it to reduce body cholesterol, high blood pressure, and improve coronary heart diseases.")
+            if spo2 <= 90:
                 dispatcher.utter_message(template="utter_pressure_suggest",
-                                         spo2_suggest="Please follow the steps bellow to lower the pressure to the safe value")
-            elif spo2 <= 60:
-                dispatcher.utter_message(template="utter_pressure_suggest",
-                                         spo2_suggest="Please follow the steps bellow to increase the pressure to save value")
-
-
-
-class ValidateRestaurantForm(Action):
-    def name(self) -> Text:
-        return "validate_diagnosis_forms"
-
-    def run(
-            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> List[EventType]:
-        required_slots = ["vital_signs"]
-
-        for slot_name in required_slots:
-            if tracker.slots.get(slot_name) is None:
-                # The slot is not filled yet. Request the user to fill this slot next.
-                return [SlotSet("requested_slot", slot_name)]
-
-        # All slots are filled.
-        return [SlotSet("requested_slot", None)]
-
-
-class ActionSubmit(Action):
-    def name(self) -> Text:
-        return "action_diagnosis_submit"
-
-    def run(
-            self,
-            dispatcher,
-            tracker: Tracker,
-            domain: "DomainDict",
-    ) -> List[Dict[Text, Any]]:
-        vital_signs = fetch_vital_signs()
-        vital_aggr_signs = fetch_aggr_signs()
-        if len(vital_signs) > 0:
-            tempr = str(vital_signs[0]["tempr"])
-            resp = str(vital_signs[0]["resp"])
-            hr = str(vital_signs[0]["hr"])
-            spo2 = str(vital_signs[0]["spo2"])
-        else:
-            tempr = "No data"
-            resp = "No data"
-            hr = "No Data"
-            spo2 = "No data"
-        if tracker.get_slot('vital_signs') == "temperature":
-            maxtempr = str(vital_aggr_signs[0]["maxtempr"])
-            mintempr = str(vital_aggr_signs[0]["mintempr"])
-            avgtempr = str(vital_aggr_signs[0]["avgtempr"])
-            dispatcher.utter_message(template="utter_temperature", temperature=tempr, maxtempr=maxtempr,
-                                     mintempr=mintempr, avgtempr=avgtempr)
-
-        elif tracker.get_slot('vital_signs') == "heart":
-            maxhr = str(vital_aggr_signs[0]["maxhr"])
-            minhr = str(vital_aggr_signs[0]["minhr"])
-            avghr = str(vital_aggr_signs[0]["avghr"])
-            dispatcher.utter_message(template="utter_heart", heart=hr, maxhr=maxhr, minhr=minhr, avghr=avghr)
-
-        elif tracker.get_slot('vital_signs') == "pressure":
-            maxspo2 = str(vital_aggr_signs[0]["maxspo2"])
-            minspo2 = str(vital_aggr_signs[0]["minspo2"])
-            avgspo2 = str(vital_aggr_signs[0]["avgspo2"])
-            dispatcher.utter_message(template="utter_pressure", pressure=spo2, maxspo2=maxspo2, minspo2=minspo2,
-                                     avgspo2=avgspo2)
-
-        elif tracker.get_slot('vital_signs') == "respiration":
-            maxresp = str(vital_aggr_signs[0]["maxresp"])
-            minresp = str(vital_aggr_signs[0]["minresp"])
-            avgresp = str(vital_aggr_signs[0]["avgresp"])
-            dispatcher.utter_message(template="utter_respiration", respiration=resp, maxresp=maxresp, minresp=minresp,
-                                     avgresp=avgresp)
-
-        elif tracker.get_slot('vital_signs') == "all":
-            dispatcher.utter_message(template="utter_all",
-                                     all="Temp: " + tempr + " C Oxygen Saturation: " + spo2 + " % Heart rate: " + hr + " bpm Respiration: " + resp+" bpm")
-
-        else:
-            dispatcher.utter_message(template="utter_none",
-                                     none="No vital sign selected")
-
-        return [SlotSet("requested_slot", None)]
+                                         spo2_suggest="Please follow the steps bellow to lower the pressure to the safe value\n"
+                                                      "1- Lie down in the prone position. Proning is the best position to increase the oxygen level of your body\n"
+                                                      "2- Include more antioxidants in your diet. Antioxidants allow your body to use oxygen more efficiently\n"
+                                                      "3- Practice slow and deep breathing. our breathing pattern can have a vast effect on your blood's oxygen saturation level. By changing your breathing style, you can provide a significant boost to your blood's SpO2 level\n"
+                                                      "4- Drink lots of fluid. Keeping yourself hydrated is another important method to improve your blood's oxygen saturation level")

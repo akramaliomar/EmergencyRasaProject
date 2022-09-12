@@ -41,11 +41,7 @@ nlu:
     - of course
     - that sounds good
     - correct
-- intent: set_code
-  examples: |
-    - my code is 123?
-    - 123
-    - this is my code 1234
+
 - intent: deny
   examples: |
     - no
@@ -103,6 +99,7 @@ nlu:
     - do I have a problem?
     - recent vital signs
     - can I get the recent vital signs
+    - check vital signs
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
@@ -118,7 +115,7 @@ nlu:
     - how can i get rid of it?
     - how to solve it?
     - how to fix it?
-    - fix it
+    - can you tel me how to fix it
     - can you tel me how to fix it
     - tel me how to fix it
     - what do you suggest?
@@ -131,33 +128,8 @@ nlu:
     - suggestion?
     - What can i do
     - what to do
-- intent: have_account
-  examples: |
-    - I have an account
-    - Yes I have
-    - I have
-- intent: vital_signs
-  examples: |
-    - i want to check [temperature](vital_sign)
-    - i want to check [Temp](vital_sign)
-    - i want to check [Heat](vital_sign)
-    - i want to check [heart](vital_sign)
-    - i want to check [Heart](vital_sign)
-    - i want to check [Pressure](vital_sign)
-    - i want to check [pressure](vital_sign)
-    - i want to check [Hypertension](vital_sign)
-    - i want to check [all](vital_sign)
-    - [all](vital_sign)
-    - [respiration](vital_sign)
-    - [Respiration](vital_sign)
-    - [Hypertension](vital_sign)
-    - [pressure](vital_sign)
-    - [Pressure](vital_sign)
-    - [temperature](vital_sign)
-    - [Temperature](vital_sign)
-    - [Temp](vital_sign)
-    - [temp](vital_sign)
-    - heart rate
+    - Advice me
+
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -165,27 +137,3 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
     - why?
-- intent: request_diagnosis
-  examples: |
-    - diagnosis
-    - Diagnosis
-    - Check Vital Signs
-    - patient diagnosis
-- intent: add_user
-  examples: |
-    - add user
-    - register user
-- intent: prescription
-  examples: |
-    - prescription
-    - Prescription
-    - Treating the patient
-    - prescribe the patient
-- intent: start_support
-  examples: |
-    - Start support
-    - start
-- intent: predict
-  examples: |
-    - Predictions
-    - Predict

@@ -8,33 +8,13 @@ intents:
 - affirm
 - deny
 - bot_challenge
-- start_support
-- request_diagnosis
-- prescription
-- add_user
-- have_account
 - user_diagnostic_enquiries
 - user_what_is_wrong
 - user_what_is_suggested
-- predict
-- set_code:
-    use_entities:
-    - number
-- vital_signs:
-    use_entities:
-    - vital_sign
 - nlu_fallback
-entities:
-- vital_sign
-- number
+
 slots:
   vital_signs:
-    type: text
-    influence_conversation: true
-  auth_code:
-    type: any
-    influence_conversation: false
-  auth_name:
     type: text
     influence_conversation: true
   temp_reading:
@@ -63,10 +43,7 @@ slots:
 responses:
   utter_greet:
   - text: Hey! How are you?
-  utter_vital_sign:
-  - text: Your choose is {vital_sign}
-  utter_code:
-  - text: you code is{code}
+
   utter_goodbye:
   - text: Bye
   utter_iamabot:
@@ -75,56 +52,20 @@ responses:
   - text: Thanks for providing the values.
   utter_out_of_scope:
   - text: Sorry,Invalid Response.
-  utter_initialized:
-  - text: Initialized....
   utter_medbot_greet:
-  - text: Hello, I am Physician Bot
+  - text: Hello, I am Medical Bot
   utter_medbot_intro:
-  - text: I am designed to to help you diagnose and prescribe the patient
+  - text: I am designed or trained to analyse vitals signs
   utter_service_list:
   - text: |-
-      In this chatbot, you can get the following services:
-      1- I can give you the recent vital signs readings   
-       2- I can Identify anomalies of the detected vital signs of the patient 
-       3- I can recommend you what to do when the health status of the patient is not normal 
+      Below are my services:
+      1- I can read recent vital signs   
+      2- I can detect anomalies from recent vital signs
+      3- I can give best practice advices in case of vital signs anomalies
   utter_ask_for_help:
-  - text: Now can you tel me what would you like to ask me to do for you?
-  - text: Which Service Would you like to have?
+  - text: How Can I help you
+  - text: Which Service Would you like to ask?
 
-  utter_prediction:
-  - text: Prediction is {prediction}
-
-  utter_ask_start:
-  - buttons:
-    - payload: /start_support
-      title: Lets get Started
-    - payload: /deny
-      title: No, Thanks
-    text: Shall we get started?
-  utter_ask_auth_code:
-  - text: 'Please enter your code '
-  utter_ask_auth_name:
-  - text: 'Please enter your username '
-  utter_ask_vital_signs:
-  - text: Which vital sign would you want to diagnose?
-  utter_temperature:
-  - text: |-
-      Recent Temperature Reading:{temperature} C
-       Maximum: {maxtempr} C
-       Minimum: {mintempr} C
-       Mean: {avgtempr} C
-  utter_pressure:
-  - text: |-
-      Recent Blood Oxygen Saturation Reading:{pressure} %
-       Maximum: {maxspo2} %
-       Minimum: {minspo2} %
-       Mean: {avgspo2} %
-  utter_heart:
-  - text: |-
-      Recent Heart Rate Reading:{heart} bpm
-       Maximum: {maxhr} bpm
-       Minimum: {minhr} bpm
-       Mean: {avghr} bpm
   utter_health_status:
   - text: The Health Condition is {health_status}
   utter_abnormal_response:
@@ -157,63 +98,21 @@ responses:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
   utter_low_pressure:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
-  utter_respiration:
-  - text: |-
-      Recent Respiration Rate Reading:{respiration} bpm
-       Maximum: {maxresp} bpm
-       Minimum: {minresp} bpm
-       Mean: {avgresp} bpm
+
   utter_all:
   - text: |-
       Recent Vital Signs Readings:
        {all}
   utter_none:
   - text: '{none}'
-  utter_user_success:
-  - text: 'You have been registered successfully with username:  {user_name}'
-  utter_user_fail:
-  - text: Registration of {user_name} failed
-  utter_auth_success:
-  - text: 'Greate! You are successfully authenticated username: {auth_name} user_code {auth_code}'
-  utter_auth_fail:
-  - text: 'Error Wrong username: {auth_name} or user_code {auth_code} '
+
   utter_check_device:
-  - text: To Proceed, Please Make sure you attach the device to the patient.
-  utter_what_to_do:
-  - buttons:
-    - payload: /request_diagnosis
-      title: Diagnosis
-    - payload: /prescription
-      title: Prescription
-    - payload: /deny
-      title: None
-    text: What would you like to do?
-  utter_ask_user:
-  - buttons:
-    - payload: /have_account
-      title: Yes
-    - payload: /have_account
-      title: No
-    text: Do you have an Account?
+  - text: To Proceed, Please Make sure the device is correctly attached to the patient.
+
 actions:
-- action_diagnosis_submit
 - utter_out_of_scope
-- action_authentication_submit
 - check_heath_status_action
-- add_user_action
 - diagnostic_response_action
 - check_abnormal_vital_signs_action
 - suggested_action
-- check_prediction_action
-forms:
-  authentication_form:
-    required_slots:
-      auth_code:
-      - entity: number
-        intent: set_code
-        type: from_entity
-  diagnosis_forms:
-    required_slots:
-      vital_signs:
-      - entity: vital_sign
-        type: from_entity
+

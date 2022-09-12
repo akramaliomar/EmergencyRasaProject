@@ -19,10 +19,7 @@ stories:
   - action: check_abnormal_vital_signs_action
   - intent: user_what_is_suggested
   - action: suggested_action
-- story: hapy path add user
-  steps:
-  - intent: add_user
-  - action: add_user_action
+
 - story: Story from Conversation ID 6da4f3cb9d8543fcb2fef4cbbbcdabc7
   steps:
   - intent: greet
@@ -34,10 +31,5 @@ stories:
   - action: diagnostic_response_action
   - intent: user_what_is_wrong
   - action: check_abnormal_vital_signs_action
-
-- story: Story Prediction
-  steps:
-  - intent: predict
-  - action: check_prediction_action
 
 

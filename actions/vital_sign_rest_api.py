@@ -11,9 +11,9 @@ def fetch_vital_signs():
     return json_data
 
 
-def prediction():
-    testvalue = [[77., 93., 20., 26.]]
-    testvalue = [[44., 100., 15., 41.]]
+def prediction(hr, spo2, resp, tempr):
+    # testvalue = [[77., 93., 20., 26.]]
+    testvalue = [[float(hr), float(spo2), float(resp), float(tempr)]]
     loaded_model = tf.keras.models.load_model('/app/actions/vital_signs.h5')  # loading the saved model
     predictions = loaded_model.predict(testvalue)  # making predictions
     vital_signs = int(np.argmax(predictions))  # index of maximum prediction
@@ -21,7 +21,10 @@ def prediction():
     # print("Prediction: ", predictions.tolist())
     # print("Vital Sign: ", vital_signs)
     # print("Probability: ", probability)
-    return vital_signs
+    if vital_signs==1:
+        return "Abnormal"
+    elif vital_signs==0:
+        return "Normal"
 
 def fetch_aggr_signs():
     url = 'https://aceiot-project.uc.r.appspot.com/fetch_aggr_vs'
@@ -30,9 +33,9 @@ def fetch_aggr_signs():
     # print(format_add)
     return json_data
 
-def fetch_heath_status():
-    url = 'https://aceiot-project.uc.r.appspot.com/prediction'
-    json_data = requests.get(url).json()
-    # format_add = json_data['main']
-    # print(format_add)
-    return json_data
+# def fetch_heath_status():
+#     url = 'https://aceiot-project.uc.r.appspot.com/prediction'
+#     json_data = requests.get(url).json()
+#     # format_add = json_data['main']
+#     # print(format_add)
+#     return json_data
