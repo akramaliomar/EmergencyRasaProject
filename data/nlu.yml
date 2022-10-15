@@ -41,7 +41,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -74,6 +73,12 @@ nlu:
     - Check anomalies
     - check vital signs anomalies
     - Am I ok?
+    - is there any anomalies
+    - anomalies
+    - detect anomalies
+    - am I safe?
+    - 2- I can detect anomalies from recent vital signs
+    - feeling fatigue
 - intent: user_what_is_wrong
   examples: |
     - Wrong?
@@ -100,6 +105,13 @@ nlu:
     - recent vital signs
     - can I get the recent vital signs
     - check vital signs
+    - is there any problem
+    - read recent vital signs
+    - Vital signs
+    - 1- I can read recent vital signs
+    - do I have any vital signs
+    - I want to know my vital signs
+    - what are the major vital signs?
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
@@ -116,7 +128,6 @@ nlu:
     - how to solve it?
     - how to fix it?
     - can you tel me how to fix it
-    - can you tel me how to fix it
     - tel me how to fix it
     - what do you suggest?
     - what is you suggestion?
@@ -129,7 +140,11 @@ nlu:
     - What can i do
     - what to do
     - Advice me
-
+    - what is your suggestion
+    - what can i do
+    - recommendations
+    - what can I do?
+    - can you give me advice
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -137,3 +152,4 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
     - why?
+    - why

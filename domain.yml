@@ -12,7 +12,7 @@ intents:
 - user_what_is_wrong
 - user_what_is_suggested
 - nlu_fallback
-
+- prescription
 slots:
   vital_signs:
     type: text
@@ -43,7 +43,6 @@ slots:
 responses:
   utter_greet:
   - text: Hey! How are you?
-
   utter_goodbye:
   - text: Bye
   utter_iamabot:
@@ -65,7 +64,6 @@ responses:
   utter_ask_for_help:
   - text: How Can I help you
   - text: Which Service Would you like to ask?
-
   utter_health_status:
   - text: The Health Condition is {health_status}
   utter_abnormal_response:
@@ -98,21 +96,17 @@ responses:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
   utter_low_pressure:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
-
   utter_all:
   - text: |-
       Recent Vital Signs Readings:
        {all}
   utter_none:
   - text: '{none}'
-
   utter_check_device:
   - text: To Proceed, Please Make sure the device is correctly attached to the patient.
-
 actions:
 - utter_out_of_scope
 - check_heath_status_action
 - diagnostic_response_action
 - check_abnormal_vital_signs_action
 - suggested_action
-
