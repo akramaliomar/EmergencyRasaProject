@@ -9,16 +9,28 @@ stories:
   - action: utter_ask_for_help
   - intent: user_diagnostic_enquiries
   - action: diagnostic_response_action
-- story: hapy path prescription
-  steps:
-  - intent: prescription
-  - action: check_heath_status_action
+#- story: hapy path prescription
+#  steps:
+#  - intent: prescription
+#  - action: check_heath_status_action
 - story: hapy path what is wrong
   steps:
   - intent: user_what_is_wrong
   - action: check_abnormal_vital_signs_action
   - intent: user_what_is_suggested
   - action: suggested_action
+
+
+
+- story: hapy path vital sign readings
+  steps:
+  - intent: vital_signs
+    entities:
+      - vital_signs: "temperature"
+  - slot_was_set:
+      - vital_signs: "temperature"
+  - action: action_request_vital_signs
+
 
 - story: Story from Conversation ID 6da4f3cb9d8543fcb2fef4cbbbcdabc7
   steps:
