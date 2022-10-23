@@ -145,6 +145,29 @@ nlu:
     - recommendations
     - what can I do?
     - can you give me advice
+   
+ - intent: vital_signs
+  examples: |
+    - i want to check [temperature]{"entity":"vital_signs", "value":"temperature"}
+    - i want to check [Temp]{"entity":"vital_signs", "value":"temperature"}
+    - i want to check [Heat]{"entity":"vital_signs", "value":"Heat"}
+    - i want to check [heart]{"entity":"vital_signs", "value":"heart"}
+    - i want to check [Heart]{"entity":"vital_signs", "value":"Heart"}
+    - i want to check [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - i want to check [all]{"entity":"vital_signs", "value":"all"}
+    - [all]{"entity":"vital_signs", "value":"all"}
+    - [respiration]{"entity":"vital_signs", "value":"respiration"}
+    - [Respiration]{"entity":"vital_signs", "value":"Respiration"}
+    - [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - [pressure]{"entity":"vital_signs", "value":"pressure"}
+    - [Pressure]{"entity":"vital_signs", "value":"Pressure"}
+    - [temperature]{"entity":"vital_signs", "value":"temperature"}
+    - [Temperature]{"entity":"vital_signs", "value":"Temperature"}
+    - [Temp]{"entity":"vital_signs", "value":"Temp"}
+    - [temp]{"entity":"vital_signs", "value":"temp"}
+    - [heart rate]{"entity":"vital_signs", "value":"heart rate"}
+
+ 
 - intent: bot_challenge
   examples: |
     - are you a bot?
