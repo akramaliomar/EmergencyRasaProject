@@ -98,7 +98,7 @@ responses:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
  
  
-   utter_temperature:
+  utter_temperature:
   - text: |-
       Recent Temperature Reading:{temperature} C
        Maximum: {maxtempr} C
