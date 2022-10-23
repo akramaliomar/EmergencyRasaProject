@@ -96,6 +96,42 @@ responses:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
   utter_low_pressure:
   - text: 'The current blood oxygen saturation reading is {spo2} % Status: {spo2Status}'
+ 
+ 
+   utter_temperature:
+  - text: |-
+      Recent Temperature Reading:{temperature} C
+       Maximum: {maxtempr} C
+       Minimum: {mintempr} C
+       Mean: {avgtempr} C
+  utter_oxygen:
+  - text: |-
+      Recent Blood Oxygen Saturation Reading:{oxygen} %
+       Maximum: {maxspo2} %
+       Minimum: {minspo2} %
+       Mean: {avgspo2} %
+  utter_heart:
+  - text: |-
+      Recent Heart Rate Reading:{heart} bpm
+       Maximum: {maxhr} bpm
+       Minimum: {minhr} bpm
+       Mean: {avghr} bpm
+  utter_respiration:
+  - text: |-
+      Recent Respiration Rate Reading:{respiration} bpm
+       Maximum: {maxresp} bpm
+       Minimum: {minresp} bpm
+       Mean: {avgresp} bpm
+       
+  utter_all:
+  - text: |-
+      Recent Vital Signs Readings:
+       {all}
+  utter_none:
+  - text: '{none}'
+
+ 
+ 
   utter_all:
   - text: |-
       Recent Vital Signs Readings:
