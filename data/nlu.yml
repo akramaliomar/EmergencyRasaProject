@@ -145,29 +145,26 @@ nlu:
     - recommendations
     - what can I do?
     - can you give me advice
-   
 - intent: vital_signs
   examples: |
-    - i want to check [temperature]{"entity":"vital_signs", "value":"temperature"}
-    - i want to check [Temp]{"entity":"vital_signs", "value":"temperature"}
-    - i want to check [Heat]{"entity":"vital_signs", "value":"Heat"}
-    - i want to check [heart]{"entity":"vital_signs", "value":"heart"}
-    - i want to check [Heart]{"entity":"vital_signs", "value":"Heart"}
-    - i want to check [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
-    - i want to check [all]{"entity":"vital_signs", "value":"all"}
-    - [all]{"entity":"vital_signs", "value":"all"}
-    - [respiration]{"entity":"vital_signs", "value":"respiration"}
-    - [Respiration]{"entity":"vital_signs", "value":"Respiration"}
-    - [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
-    - [pressure]{"entity":"vital_signs", "value":"pressure"}
-    - [Pressure]{"entity":"vital_signs", "value":"Pressure"}
-    - [temperature]{"entity":"vital_signs", "value":"temperature"}
-    - [Temperature]{"entity":"vital_signs", "value":"Temperature"}
-    - [Temp]{"entity":"vital_signs", "value":"Temp"}
-    - [temp]{"entity":"vital_signs", "value":"temp"}
-    - [heart rate]{"entity":"vital_signs", "value":"heart rate"}
-
- 
+    - i want to check [temperature](vital_signs)
+    - i want to check [Temp]{"entity": "vital_signs", "value": "temperature"}
+    - i want to check [Heat](vital_signs)
+    - i want to check [heart](vital_signs)
+    - i want to check [Heart](vital_signs)
+    - i want to check [Oxygen](vital_signs)
+    - i want to check [all](vital_signs)
+    - [all](vital_signs)
+    - [respiration](vital_signs)
+    - [Respiration](vital_signs)
+    - [Oxygen](vital_signs)
+    - [pressure](vital_signs)
+    - [Pressure](vital_signs)
+    - [temperature](vital_signs)
+    - [Temperature](vital_signs)
+    - [Temp](vital_signs)
+    - [temp](vital_signs)
+    - [heart rate](vital_signs)
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -176,3 +173,6 @@ nlu:
     - am I talking to a human?
     - why?
     - why
+- synonym: temperature
+  examples: |
+    - Temp
