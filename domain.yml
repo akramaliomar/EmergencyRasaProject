@@ -12,34 +12,13 @@ intents:
 - user_what_is_wrong
 - user_what_is_suggested
 - nlu_fallback
-- prescription
+- vital_signs
+entities:
+- vital_signs
 slots:
   vital_signs:
     type: text
     influence_conversation: true
-  temp_reading:
-    type: float
-    influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
-  sop2_reading:
-    type: float
-    influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
-  heart_reading:
-    type: float
-    influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
-  resp_reading:
-    type: float
-    influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
-  requested_slot:
-    type: unfeaturized
-    influence_conversation: false
 responses:
   utter_greet:
   - text: Hey! How are you?
@@ -106,7 +85,7 @@ responses:
   - text: To Proceed, Please Make sure the device is correctly attached to the patient.
 actions:
 - utter_out_of_scope
-- check_heath_status_action
 - diagnostic_response_action
 - check_abnormal_vital_signs_action
 - suggested_action
+- action_request_vital_signs
