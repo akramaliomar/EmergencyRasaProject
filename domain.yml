@@ -122,16 +122,7 @@ responses:
        Maximum: {maxresp} bpm
        Minimum: {minresp} bpm
        Mean: {avgresp} bpm
-       
-  utter_all:
-  - text: |-
-      Recent Vital Signs Readings:
-       {all}
-  utter_none:
-  - text: '{none}'
 
- 
- 
   utter_all:
   - text: |-
       Recent Vital Signs Readings:
