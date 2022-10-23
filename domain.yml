@@ -13,6 +13,9 @@ intents:
 - user_what_is_suggested
 - nlu_fallback
 - prescription
+- vital_signs
+entities:
+- vital_signs
 slots:
   vital_signs:
     type: text
@@ -110,3 +113,4 @@ actions:
 - diagnostic_response_action
 - check_abnormal_vital_signs_action
 - suggested_action
+- action_request_vital_signs
