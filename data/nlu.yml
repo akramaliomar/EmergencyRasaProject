@@ -146,7 +146,7 @@ nlu:
     - what can I do?
     - can you give me advice
    
- - intent: vital_signs
+- intent: vital_signs
   examples: |
     - i want to check [temperature]{"entity":"vital_signs", "value":"temperature"}
     - i want to check [Temp]{"entity":"vital_signs", "value":"temperature"}
