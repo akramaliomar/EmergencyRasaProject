@@ -12,12 +12,29 @@
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, EventType
 from rasa_sdk.executor import CollectingDispatcher
-from actions.vital_sign_rest_api import fetch_vital_signs, check_anomalies, \
-    check_anomaly_recommendations
+from actions.vital_sign_rest_api import fetch_vital_signs, check_anomalies, check_anomaly_recommendations
 # from actions.db import add_user, authenticate_user
 from typing import Dict, Text, List, Optional, Any
 from rasa_sdk.forms import FormValidationAction
 
+
+# class ActionAge(Action):
+#     def name(self) -> Text:
+#         return "action_health"
+#
+#     def run(
+#             self,
+#             dispatcher,
+#             tracker: Tracker,
+#             domain: "DomainDict",
+#     ) -> List[Dict[Text, Any]]:
+#         buttons = [
+#             {"payload": '/health{"health_status":"Diabetics"}', "title": "Diabetics"},
+#             {"payload": '/health{"health_status":"Malaria"}', "title": "Malaria"},
+#             {"payload": '/health{"health_status":"HIV"}', "title": "HIV"},
+#         ]
+#         dispatcher.utter_message(text="Do you any of the following?", buttons = buttons)
+#         return []
 
 # class ActionCheckStatus(Action):
 #     def name(self) -> Text:
@@ -98,8 +115,9 @@ class ActionCheckAbnormalStatus(Action):
                                      hr=str(hr), hrStatus=hrStatus)
             dispatcher.utter_message(template="utter_high_pressure",
                                      spo2=str(spo2), spo2Status=spo2Status)
+            return []
 
-            return {"temp_reading": tempr, "sop2_reading": spo2, "heart_reading": hr, "resp_reading": resp}
+            # return {"temp_reading": tempr, "sop2_reading": spo2, "heart_reading": hr, "resp_reading": resp}
         else:
             dispatcher.utter_message(template="utter_no_data", no_data="No data available")
 
@@ -246,6 +264,46 @@ class ActionSuggestion(Action):
 #                                                       "3- Practice slow and deep breathing. our breathing pattern can have a vast effect on your blood's oxygen saturation level. By changing your breathing style, you can provide a significant boost to your blood's SpO2 level\n"
 #                                                       "4- Drink lots of fluid. Keeping yourself hydrated is another important method to improve your blood's oxygen saturation level")
 #
+#
+# class ActionRequestAge(Action):
+#     def name(self) -> Text:
+#         return "action_request_age"
+#
+#     def run(
+#             self,
+#             dispatcher,
+#             tracker: Tracker,
+#             domain: "DomainDict",
+#     ) -> List[Dict[Text, Any]]:
+#         dispatcher.utter_message(template="utter_ask_for_help1", age=tracker.get_slot('age'))
+#         return []
+
+# class ActionRequestHealth(Action):
+#     def name(self) -> Text:
+#         return "action_request_health"
+#
+#     def run(
+#             self,
+#             dispatcher,
+#             tracker: Tracker,
+#             domain: "DomainDict",
+#     ) -> List[Dict[Text, Any]]:
+#         dispatcher.utter_message(template="utter_health_status", health_status=tracker.get_slot('health_status'))
+#         return []
+#
+# class ActionRequestDevice(Action):
+#     def name(self) -> Text:
+#         return "action_request_device"
+#
+#     def run(
+#             self,
+#             dispatcher,
+#             tracker: Tracker,
+#             domain: "DomainDict",
+#     ) -> List[Dict[Text, Any]]:
+#         dispatcher.utter_message(template="utter_device", device_number=tracker.get_slot('device_number'))
+#         return []
+
 
 class ActionRequestVitalSigns(Action):
     def name(self) -> Text:
@@ -282,7 +340,7 @@ class ActionRequestVitalSigns(Action):
             avghr = vital_signs[2][0]["avghr"]
             dispatcher.utter_message(template="utter_heart", heart=hr, maxhr=maxhr, minhr=minhr, avghr=avghr)
 
-        elif tracker.get_slot('vital_signs') in ["oxygen"]:
+        elif tracker.get_slot('vital_signs') in ["oxygen","spo2"]:
             maxspo2 = vital_signs[2][0]["maxspo2"]
             minspo2 = vital_signs[2][0]["minspo2"]
             avgspo2 = vital_signs[2][0]["avgspo2"]
