@@ -41,6 +41,7 @@ nlu:
     - of course
     - that sounds good
     - correct
+
 - intent: deny
   examples: |
     - no
@@ -73,12 +74,6 @@ nlu:
     - Check anomalies
     - check vital signs anomalies
     - Am I ok?
-    - is there any anomalies
-    - anomalies
-    - detect anomalies
-    - am I safe?
-    - 2- I can detect anomalies from recent vital signs
-    - feeling fatigue
 - intent: user_what_is_wrong
   examples: |
     - Wrong?
@@ -105,13 +100,6 @@ nlu:
     - recent vital signs
     - can I get the recent vital signs
     - check vital signs
-    - is there any problem
-    - read recent vital signs
-    - Vital signs
-    - 1- I can read recent vital signs
-    - do I have any vital signs
-    - I want to know my vital signs
-    - what are the major vital signs?
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
@@ -128,6 +116,7 @@ nlu:
     - how to solve it?
     - how to fix it?
     - can you tel me how to fix it
+    - can you tel me how to fix it
     - tel me how to fix it
     - what do you suggest?
     - what is you suggestion?
@@ -140,31 +129,7 @@ nlu:
     - What can i do
     - what to do
     - Advice me
-    - what is your suggestion
-    - what can i do
-    - recommendations
-    - what can I do?
-    - can you give me advice
-- intent: vital_signs
-  examples: |
-    - i want to check [temperature](vital_signs)
-    - i want to check [Temp]{"entity": "vital_signs", "value": "temperature"}
-    - i want to check [Heat](vital_signs)
-    - i want to check [heart](vital_signs)
-    - i want to check [Heart](vital_signs)
-    - i want to check [Oxygen](vital_signs)
-    - i want to check [all](vital_signs)
-    - [all](vital_signs)
-    - [respiration](vital_signs)
-    - [Respiration](vital_signs)
-    - [Oxygen](vital_signs)
-    - [pressure](vital_signs)
-    - [Pressure](vital_signs)
-    - [temperature](vital_signs)
-    - [Temperature](vital_signs)
-    - [Temp](vital_signs)
-    - [temp](vital_signs)
-    - [heart rate](vital_signs)
+
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -172,7 +137,93 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
     - why?
-    - why
-- synonym: temperature
+
+- intent: vital_signs
   examples: |
-    - Temp
+    - i want to check [temperature]{"entity":"vital_signs", "value":"temperature"}
+    - i want to check [Temp]{"entity":"vital_signs", "value":"temperature"}
+    - i want to check [Heat]{"entity":"vital_signs", "value":"Heat"}
+    - i want to check [heart]{"entity":"vital_signs", "value":"heart"}
+    - i want to check [Heart]{"entity":"vital_signs", "value":"Heart"}
+    - i want to check [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - i want to check [Spo2]{"entity":"vital_signs", "value":"Spo2"}
+    - i want to check [all]{"entity":"vital_signs", "value":"all"}
+    - [all]{"entity":"vital_signs", "value":"all"}
+    - [respiration]{"entity":"vital_signs", "value":"respiration"}
+    - [Respiration]{"entity":"vital_signs", "value":"Respiration"}
+    - [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - [pressure]{"entity":"vital_signs", "value":"pressure"}
+    - [Pressure]{"entity":"vital_signs", "value":"Pressure"}
+    - [temperature]{"entity":"vital_signs", "value":"temperature"}
+    - [Temperature]{"entity":"vital_signs", "value":"Temperature"}
+    - [Temp]{"entity":"vital_signs", "value":"Temp"}
+    - [temp]{"entity":"vital_signs", "value":"temp"}
+    - [heart rate]{"entity":"vital_signs", "value":"heart rate"}
+    - [Spo2]{"entity":"vital_signs", "value":"Spo2"}
+    
+- intent: age
+  examples: |
+    - I am [Adult]{"entity":"age", "value":"Adult"}
+    - I am [Old]{"entity":"age", "value":"Old"}
+    - I am [Child]{"entity":"age", "value":"Child"}
+    - I am [Young]{"entity":"age", "value":"Young"}
+    - I am [Infant]{"entity":"age", "value":"Infant"}
+    - I am [Baby]{"entity":"age", "value":"Baby"}
+    - I am [Neonate]{"entity":"age", "value":"Neonate"}
+    - I am [newborn]{"entity":"age", "value":"newborn"}
+
+- intent: health
+  examples: |
+    - I have [Diabetics]{"entity":"health_status", "value":"Diabetics"} and [HIV]{"entity":"health_status"}
+
+- lookup: health_status
+  examples: |
+    - Diabetics
+    - Malaria
+    - HIV
+    - Pregnant
+    - Diabetic
+    - Diabetes
+    - Sugar
+    - High Blood sugar
+    - hiv
+    - AIDS
+    - None
+
+- synonym: Diabetics
+  examples: |
+    - Diabetics
+    - Diabetic
+    - Diabetes
+    - Sugar
+    - High Blood sugar
+
+- synonym: HIV
+  examples: |
+    - hiv
+    - AIDS
+
+
+- intent: device_number
+  examples: |
+    - My device number is  [DVS0001]{"entity":"device_number", "value":"DVS0001"}
+    - [DVS0001]{"entity":"device_number", "value":"DVS0001"}
+    - Device number is [DVS0001]{"entity":"device_number", "value":"DVS0001"}
+- regex: device_number
+  examples: |
+    - ^DVS\d{1, 4}
+#- intent: child
+#  examples: |
+#    - I am [Child]{"entity":"age", "value":"Child"}
+#    - I am [Young]{"entity":"age", "value":"Young"}
+#
+#- intent: infant
+#  examples: |
+#    - I am [Infant]{"entity":"age", "value":"Infant"}
+#    - I am [Baby]{"entity":"age", "value":"Baby"}
+#
+#- intent: neonate
+#  examples: |
+#    - I am [Neonate]{"entity":"age", "value":"Neonate"}
+#    - I am [newborn]{"entity":"age", "value":"newborn"}
+
