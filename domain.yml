@@ -15,12 +15,32 @@ intents:
 - user_what_is_wrong
 - user_what_is_suggested
 - nlu_fallback
+- age:
+    use_entities:
+    - age
+- device_number:
+    user_entities:
+    - device_number
+- health:
+    user_entities:
+    - health_status
+#- child
+#- infant
+#- neonate
 
 entities:
 - vital_signs
+- age
+- health_status
 
 slots:
   vital_signs:
+    type: text
+  health_status:
+    type: list
+  age:
+    type: text
+  device_number:
     type: text
   temp_reading:
     type: float
@@ -61,6 +81,11 @@ responses:
   - text: Hello, I am Medical Bot
   utter_medbot_intro:
   - text: I am designed or trained to analyse vitals signs
+  utter_device_number:
+  - text: Enter Device Number
+
+  utter_info_needed:
+  - text: For analysing vital signs, I will need a little more details from you
   utter_service_list:
   - text: |-
       Below are my services:
@@ -71,8 +96,35 @@ responses:
   - text: How Can I help you
   - text: Which Service Would you like to ask?
 
+  utter_ask_for_help1:
+  - text: How Can I help you{age}
+  - text: Which Service Would you like to ask?{age}
+
+  utter_device:
+  - text: Your device number is {device_number}
+
+  utter_ask_for_health:
+  - text: Do you have any of these (Diabetics, Malaria, HIV or Pregnant). If Yes list them
+    buttons:
+      - title: "No"
+        payload: /no_health{"health_status":"None"}
+
+
+  utter_age:
+  - text: Select Age
+    buttons:
+      - title": "Adult (8 - 120 years old)"
+        payload: /age{"age":"Adult"}
+      - title: "Child (1 - 8 years old)"
+        payload: /age{"age":"Child"}
+      - title: "Infant (1 month - 1 year old)"
+        payload: /age{"age":"Infant"}
+      - title: "Neonate (0 - 28 days old)"
+        payload": /age{"age":"Neonate"}
+
+
   utter_health_status:
-  - text: The Health Condition is {health_status}
+  - text: Your health status {health_status}
   utter_abnormal_response:
   - text: '{abnormal_response}'
   utter_normal_response:
@@ -149,4 +201,7 @@ actions:
 - check_abnormal_vital_signs_action
 - suggested_action
 - action_request_vital_signs
-
+#- action_request_age
+#- action_age
+#- action_request_device
+#- action_request_health
