@@ -41,6 +41,7 @@ nlu:
     - of course
     - that sounds good
     - correct
+
 - intent: deny
   examples: |
     - no
@@ -114,6 +115,7 @@ nlu:
     - how to solve it?
     - how to fix it?
     - can you tel me how to fix it
+    - can you tel me how to fix it
     - tel me how to fix it
     - what do you suggest?
     - what is you suggestion?
@@ -126,6 +128,7 @@ nlu:
     - What can i do
     - what to do
     - Advice me
+
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -133,101 +136,62 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
     - why?
+
 - intent: vital_signs
   examples: |
-    - i want to check [temperature](vital_signs)
-    - i want to check [Temp]{"entity": "vital_signs", "value": "temperature"}
-    - i want to check [Heat](vital_signs)
-    - i want to check [heart](vital_signs)
-    - i want to check [Heart](vital_signs)
-    - i want to check [Oxygen](vital_signs)
-    - i want to check [Spo2](vital_signs)
-    - i want to check [all](vital_signs)
-    - [all](vital_signs)
-    - [respiration](vital_signs)
-    - [Respiration](vital_signs)
-    - [Oxygen](vital_signs)
-    - [pressure](vital_signs)
-    - [Pressure](vital_signs)
-    - [temperature](vital_signs)
-    - [Temperature](vital_signs)
-    - [Temp](vital_signs)
-    - [temp](vital_signs)
-    - [heart rate](vital_signs)
-    - [Spo2](vital_signs)
+    - i want to check [temperature]{"entity":"vital_signs", "value":"temperature"}
+    - i want to check [Temp]{"entity":"vital_signs", "value":"temperature"}
+    - i want to check [Heat]{"entity":"vital_signs", "value":"Heat"}
+    - i want to check [heart]{"entity":"vital_signs", "value":"heart"}
+    - i want to check [Heart]{"entity":"vital_signs", "value":"Heart"}
+    - i want to check [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - i want to check [Spo2]{"entity":"vital_signs", "value":"Spo2"}
+    - i want to check [all]{"entity":"vital_signs", "value":"all"}
+    - [all]{"entity":"vital_signs", "value":"all"}
+    - [respiration]{"entity":"vital_signs", "value":"respiration"}
+    - [Respiration]{"entity":"vital_signs", "value":"Respiration"}
+    - [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - [pressure]{"entity":"vital_signs", "value":"pressure"}
+    - [Pressure]{"entity":"vital_signs", "value":"Pressure"}
+    - [temperature]{"entity":"vital_signs", "value":"temperature"}
+    - [Temperature]{"entity":"vital_signs", "value":"Temperature"}
+    - [Temp]{"entity":"vital_signs", "value":"Temp"}
+    - [temp]{"entity":"vital_signs", "value":"temp"}
+    - [heart rate]{"entity":"vital_signs", "value":"heart rate"}
+    - [Spo2]{"entity":"vital_signs", "value":"Spo2"}
+    
 - intent: age
   examples: |
-    - I am [Adult](age)
-    - I am [Old](age)
-    - I am [Child](age)
-    - I am [Young](age)
-    - I am [Infant](age)
-    - I am [Baby](age)
-    - I am [Neonate](age)
-    - I am [newborn](age)
+    - I am [Adult]{"entity":"age", "value":"Adult"}
+    - I am [Old]{"entity":"age", "value":"Old"}
+    - I am [Child]{"entity":"age", "value":"Child"}
+    - I am [Young]{"entity":"age", "value":"Young"}
+    - I am [Infant]{"entity":"age", "value":"Infant"}
+    - I am [Baby]{"entity":"age", "value":"Baby"}
+    - I am [Neonate]{"entity":"age", "value":"Neonate"}
+    - I am [newborn]{"entity":"age", "value":"newborn"}
+
 - intent: context
   examples: |
-    - [Home](context)
-    - [Hospital](context)
-    - [Paramedics](context)
-    - [Dispensary](context)
-    - [Clinic](context)
-    - [Individuals](context)
-    - [Home remedies](context)
+    - [Home]{"entity":"context", "value":"Home"}
+    - [Hospital]{"entity":"context", "value":"Hospital"}
+    - [Paramedics]{"entity":"context", "value":"Paramedics"}
+    - [Dispensary]{"entity":"context", "value":"Dispensary"}
+    - [Clinic]{"entity":"context", "value":"Clinic"}
+    - [Individuals]{"entity":"context", "value":"Individuals"}
+    - [Home remedies]{"entity":"context", "value":"Home remedies"}
+
 - intent: health
   examples: |
-    - I have [Diabetics](health_status) and [HIV](health_status)
-    - [Diabetics](health_status), [Malaria](health_status), [HIV](health_status)
-    - [Malaria](health_status)
-    - [HIV](health_status)
-    - [Diabetics](health_status)
-    - [Pregnant](health_status)
-    - [Sugar](health_status)
-    - [None](health_status)
-- intent: set_code
-  examples: |
-    - my code is 1234?
-    - 1234
-    - this is my code 1234
-- intent: exit
-  examples: |
-    - exit
-    - cancel
-    - logout
-    - quit
-    - leave
-    - end
-- intent: device_number
-  examples: |
-    - My device number is  [DVS0001](device_number)
-    - [DVS0001](device_number)
-    - Device number is [DVS0001](device_number)
-- synonym: temperature
-  examples: |
-    - Temp
-- synonym: Diabetics
-  examples: |
-    - Diabetic
-    - Diabetes
-    - Sugar
-    - High Blood sugar
-- synonym: Pregnant
-  examples: |
-    - Pregnants
-    - pregnant
-    - PREGNANT
-- synonym: Malaria
-  examples: |
-    - malaria
-    - MALARIA
-- synonym: HIV
-  examples: |
-    - hiv
-    - AIDS
-- regex: device_number
-  examples: |
-    - \d{1, 4}
-    - ^DVS
+    - I have [Diabetics]{"entity":"health_status", "value":"Diabetics"} and [HIV]{"entity":"health_status"}
+    - [Diabetics]{"entity":"health_status"}, [Malaria]{"entity":"health_status"}, [HIV]{"entity":"health_status"}
+    - [Malaria]{"entity":"health_status"}
+    - [HIV]{"entity":"health_status"}
+    - [Diabetics]{"entity":"health_status"}
+    - [Pregnant]{"entity":"health_status"}
+    - [Sugar]{"entity":"health_status"}
+    - [None]{"entity":"health_status"}
+
 - lookup: health_status
   examples: |
     - Diabetics
@@ -241,3 +205,79 @@ nlu:
     - hiv
     - AIDS
     - None
+
+- synonym: Diabetics
+  examples: |
+    - Diabetics
+    - Diabetic
+    - Diabetes
+    - Sugar
+    - High Blood sugar
+
+- synonym: Pregnant
+  examples: |
+    - Pregnants
+    - pregnant
+    - PREGNANT
+
+- synonym: Malaria
+  examples: |
+    - Malaria
+    - malaria
+    - MALARIA
+
+- synonym: HIV
+  examples: |
+    - hiv
+    - AIDS
+
+
+- intent: set_code
+  examples: |
+    - my code is 1234?
+    - 1234
+    - this is my code 1234
+
+- intent: exit
+  examples: |
+    - exit
+    - cancel
+    - logout
+    - quit
+    - leave
+    - end
+
+
+- intent: device_number
+  examples: |
+    - My device number is  [DVS0001]{"entity":"device_number", "value":"DVS0001"}
+    - [DVS0001]{"entity":"device_number", "value":"DVS0001"}
+    - Device number is [DVS0001]{"entity":"device_number", "value":"DVS0001"}
+
+- regex: device_number
+  examples: |
+    - ^DVS
+    - \d{1, 4}
+
+#- intent: my_device_key
+#  examples: |
+#    - key is 12345
+#    - 12345
+#    - code is 12345
+
+
+#- intent: child
+#  examples: |
+#    - I am [Child]{"entity":"age", "value":"Child"}
+#    - I am [Young]{"entity":"age", "value":"Young"}
+#
+#- intent: infant
+#  examples: |
+#    - I am [Infant]{"entity":"age", "value":"Infant"}
+#    - I am [Baby]{"entity":"age", "value":"Baby"}
+#
+#- intent: neonate
+#  examples: |
+#    - I am [Neonate]{"entity":"age", "value":"Neonate"}
+#    - I am [newborn]{"entity":"age", "value":"newborn"}
+
