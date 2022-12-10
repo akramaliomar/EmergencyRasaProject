@@ -7,6 +7,7 @@ intents:
 - goodbye
 - affirm
 - deny
+- exit
 - bot_challenge
 - vital_signs:
     use_entities:
@@ -18,49 +19,71 @@ intents:
 - age:
     use_entities:
     - age
+
+- context:
+    use_entities:
+    - context
+- set_code:
+    use_entities:
+      - number
+    ignore_entities:
+      - device_number
 - device_number:
     user_entities:
-    - device_number
+      - device_number
+    ignore_entities:
+      - number
+
 - health:
     user_entities:
     - health_status
-#- child
-#- infant
-#- neonate
 
 entities:
 - vital_signs
 - age
+- number
+- device_number
 - health_status
+- context
 
 slots:
   vital_signs:
+    type: text
+  context:
     type: text
   health_status:
     type: list
   age:
     type: text
+  auth_code:
+    type: text
   device_number:
     type: text
+  state_machine:
+    type: "text"
+    initial_value: "start"
+  is_authenticated:
+        type: text
+        initial_value: "No"
   temp_reading:
     type: float
     influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
+    max_value: 45.0
+    min_value: 20.0
   sop2_reading:
     type: float
     influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
+    max_value: 120.0
+    min_value: 60.0
   heart_reading:
     type: float
     influence_conversation: true
-    max_value: 1.0
-    min_value: 0.0
+    max_value: 80.0
+    min_value: 10.0
   resp_reading:
     type: float
     influence_conversation: true
-    max_value: 1.0
+    max_value: 70.0
     min_value: 0.0
   requested_slot:
     type: unfeaturized
@@ -81,8 +104,9 @@ responses:
   - text: Hello, I am Medical Bot
   utter_medbot_intro:
   - text: I am designed or trained to analyse vitals signs
-  utter_device_number:
-  - text: Enter Device Number
+
+  utter_authentication_msg:
+  - text: 'Msg: {msg}'
 
   utter_info_needed:
   - text: For analysing vital signs, I will need a little more details from you
@@ -93,27 +117,45 @@ responses:
       2- I can detect anomalies from recent vital signs
       3- I can give best practice advices in case of vital signs anomalies
   utter_ask_for_help:
-  - text: How Can I help you
-  - text: Which Service Would you like to ask?
+  - text: How Can I help you?
+  - text: Which Service Would you like to get?
 
-  utter_ask_for_help1:
-  - text: How Can I help you{age}
-  - text: Which Service Would you like to ask?{age}
+  utter_ask_for_more_help:
+  - text: What more Can I help you?
+  - text: Which other Services Would you like to get?
+  - text: Any other service you need? Please specify
 
+#  utter_ask_for_help1:
+#  - text: How Can I help you{age} {device}
+#  - text: Which Service Would you like to ask?{age} {device}
+
+  utter_ask_for_age:
+  - text: Your age is {age}
   utter_device:
   - text: Your device number is {device_number}
 
+  utter_device_code:
+  - text: Your device code is {device_key} and Device Number is {device_number} and is_authenticated is {is_authenticated}
+  utter_ask_device_number:
+  - text: Enter Device Number
+  utter_ask_auth_code:
+  - text: What is your code
+
+
+
+  utter_ask_for_context:
+    - text: Your Context is {context}
+
   utter_ask_for_health:
-  - text: Do you have any of these (Diabetics, Malaria, HIV or Pregnant). If Yes list them
+  - text: '{h_sms}Do you have any of these (Diabetics, Malaria, HIV or Pregnant)?. If Yes list them'
     buttons:
       - title: "No"
-        payload: /no_health{"health_status":"None"}
-
+        payload: /health{"health_status":"None"}
 
   utter_age:
-  - text: Select Age
+  - text: '{age_sms} Select Age'
     buttons:
-      - title": "Adult (8 - 120 years old)"
+      - title: "Adult (8 - 120 years old)"
         payload: /age{"age":"Adult"}
       - title: "Child (1 - 8 years old)"
         payload: /age{"age":"Child"}
@@ -122,6 +164,15 @@ responses:
       - title: "Neonate (0 - 28 days old)"
         payload": /age{"age":"Neonate"}
 
+  utter_context:
+  - text: '{con_sms}For getting personalized recommendations. Please choose one of the following'
+    buttons:
+      - title: "Home Remedies for Individuals"
+        payload: /context{"context":"Home"}
+      - title: "Hospitalized Patient"
+        payload: /context{"context":"Hospital"}
+      - title: "First responders for Emergency situations"
+        payload: /context{"context":"Paramedics"}
 
   utter_health_status:
   - text: Your health status {health_status}
@@ -194,6 +245,26 @@ responses:
 
   utter_check_device:
   - text: To Proceed, Please Make sure the device is correctly attached to the patient.
+#
+#  utter_ready:
+#  - text: To Proceed, Please Make sure the device is correctly attached to the patient.
+
+
+
+forms:
+  simple_activation_form:
+    required_slots:
+
+      device_number:
+        - type: from_entity
+          entity: device_number
+          intent: device_number
+
+      auth_code:
+        - type: from_entity
+          entity: number
+          intent: set_code
+
 
 actions:
 - utter_out_of_scope
@@ -201,7 +272,11 @@ actions:
 - check_abnormal_vital_signs_action
 - suggested_action
 - action_request_vital_signs
-#- action_request_age
-#- action_age
-#- action_request_device
+- action_request_device
 #- action_request_health
+#- action_request_context
+#- action_request_age
+- action_device_code
+- utter_authentication_msg
+- activity_tracking_action
+- exit_action
