@@ -49,6 +49,9 @@ entities:
 slots:
   vital_signs:
     type: text
+  needed:
+    type: any
+    initial_value: 0
   context:
     type: text
   health_status:
@@ -106,10 +109,12 @@ responses:
   - text: I am designed or trained to analyse vitals signs
 
   utter_authentication_msg:
-  - text: 'Msg: {msg}'
+  - text: '{msg}'
 
   utter_info_needed:
   - text: For analysing vital signs, I will need a little more details from you
+  utter_more_info_needed:
+  - text: Little more details needed
   utter_service_list:
   - text: |-
       Below are my services:
@@ -129,22 +134,22 @@ responses:
 #  - text: How Can I help you{age} {device}
 #  - text: Which Service Would you like to ask?{age} {device}
 
-  utter_ask_for_age:
-  - text: Your age is {age}
-  utter_device:
-  - text: Your device number is {device_number}
-
-  utter_device_code:
-  - text: Your device code is {device_key} and Device Number is {device_number} and is_authenticated is {is_authenticated}
+#  utter_ask_for_age:
+#  - text: Your age is {age}
+#  utter_device:
+#  - text: Your device number is {device_number}
+#
+#  utter_device_code:
+#  - text: Your device code is {device_key} and Device Number is {device_number} and is_authenticated is {is_authenticated}
   utter_ask_device_number:
-  - text: Enter Device Number
+  - text: Tel me you Device Number
   utter_ask_auth_code:
-  - text: What is your code
+  - text: What is your device key
 
-
-
-  utter_ask_for_context:
-    - text: Your Context is {context}
+#
+#
+#  utter_ask_for_context:
+#    - text: Your Context is {context}
 
   utter_ask_for_health:
   - text: '{h_sms}Do you have any of these (Diabetics, Malaria, HIV or Pregnant)?. If Yes list them'
@@ -153,7 +158,7 @@ responses:
         payload: /health{"health_status":"None"}
 
   utter_age:
-  - text: '{age_sms} Select Age'
+  - text: 'Can you please tel me your age?'
     buttons:
       - title: "Adult (8 - 120 years old)"
         payload: /age{"age":"Adult"}
@@ -165,7 +170,7 @@ responses:
         payload": /age{"age":"Neonate"}
 
   utter_context:
-  - text: '{con_sms}For getting personalized recommendations. Please choose one of the following'
+  - text: 'For getting personalized recommendations. Please choose one of the following'
     buttons:
       - title: "Home Remedies for Individuals"
         payload: /context{"context":"Home"}
@@ -174,8 +179,8 @@ responses:
       - title: "First responders for Emergency situations"
         payload: /context{"context":"Paramedics"}
 
-  utter_health_status:
-  - text: Your health status {health_status}
+#  utter_health_status:
+#  - text: Your health status {health_status}
   utter_abnormal_response:
   - text: '{abnormal_response}'
   utter_normal_response:
