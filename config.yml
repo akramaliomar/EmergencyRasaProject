@@ -3,20 +3,20 @@ language: en
 
 pipeline:
   - name: WhitespaceTokenizer
+  - name: LexicalSyntacticFeaturizer
   - name: RegexFeaturizer
   - name: RegexEntityExtractor
-  - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
     token_pattern: (?u)\b\w+\b
   - name: DucklingEntityExtractor
     url: "http://duckling:8000"
     dimensions: ["time", "number"]
   - name: DIETClassifier
-    epochs: 100
+    epochs: 200
   - name: EntitySynonymMapper
 
 policies:
   - name: TEDPolicy
-    epochs: 100
+    epochs: 200
   - name: AugmentedMemoizationPolicy
   - name: RulePolicy
