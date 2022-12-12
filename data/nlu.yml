@@ -21,14 +21,11 @@ nlu:
     - Hello
 - intent: goodbye
   examples: |
-    - good afternoon
     - cu
     - good by
     - cee you later
-    - good night
     - bye
     - goodbye
-    - have a nice day
     - see you around
     - bye bye
     - see you later
@@ -68,6 +65,9 @@ nlu:
     - Diagnosing patient
     - How is the patient
     - Anomalies
+    - detect anomaly
+    - Is there any anomaly?
+    - check me
     - Vital Signs anomalies
     - Identify anomalies
     - Check anomalies
@@ -106,7 +106,6 @@ nlu:
     - suggestion
     - suggest
     - solution
-    - Problem?
     - What is the solution?
     - What to do?
     - what can i do?
@@ -145,10 +144,12 @@ nlu:
     - i want to check [heart]{"entity":"vital_signs", "value":"heart"}
     - i want to check [Heart]{"entity":"vital_signs", "value":"Heart"}
     - i want to check [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
+    - i want to check [pulse]{"entity":"vital_signs", "value":"pulse"}
     - i want to check [Spo2]{"entity":"vital_signs", "value":"Spo2"}
     - i want to check [all]{"entity":"vital_signs", "value":"all"}
     - [all]{"entity":"vital_signs", "value":"all"}
     - [respiration]{"entity":"vital_signs", "value":"respiration"}
+    - [breathing]{"entity":"vital_signs", "value":"breathing"}
     - [Respiration]{"entity":"vital_signs", "value":"Respiration"}
     - [Oxygen]{"entity":"vital_signs", "value":"Oxygen"}
     - [pressure]{"entity":"vital_signs", "value":"pressure"}
@@ -157,9 +158,30 @@ nlu:
     - [Temperature]{"entity":"vital_signs", "value":"Temperature"}
     - [Temp]{"entity":"vital_signs", "value":"Temp"}
     - [temp]{"entity":"vital_signs", "value":"temp"}
-    - [heart rate]{"entity":"vital_signs", "value":"heart rate"}
     - [Spo2]{"entity":"vital_signs", "value":"Spo2"}
+ 
+
+- synonym: heart
+  examples: |
+    - Heart
+    - pulse
+    - heart
     
+
+- synonym: Spo2
+  examples: |
+    - Spo2
+    - spo2
+    - Oxygen
+    
+
+- synonym: Respiration
+  examples: |
+    - Respiration
+    - breathing
+    - respiration
+   
+
 - intent: age
   examples: |
     - I am [Adult]{"entity":"age", "value":"Adult"}
@@ -181,16 +203,56 @@ nlu:
     - [Individuals]{"entity":"context", "value":"Individuals"}
     - [Home remedies]{"entity":"context", "value":"Home remedies"}
 
+
+
+- lookup: context
+  examples: |
+    - hospital
+    - Clinic
+    - Dispensary
+    - Medical
+    - Paramedic
+    - paramedics
+    - Ambulance
+    - Hospital
+
+
+- synonym: Hospital
+  examples: |
+    - hospital
+    - Clinic
+    - Dispensary
+    - Medical
+    - home
+    - Individuals
+    - Paramedics
+    - Home
+
+- synonym: Paramedics
+  examples: |
+    - Paramedic
+    - paramedics
+    - Ambulance
+
+- synonym: Home
+  examples: |
+    - home
+    - Individuals
+
+
+
 - intent: health
   examples: |
-    - I have [Diabetics]{"entity":"health_status", "value":"Diabetics"} and [HIV]{"entity":"health_status"}
-    - [Diabetics]{"entity":"health_status"}, [Malaria]{"entity":"health_status"}, [HIV]{"entity":"health_status"}
-    - [Malaria]{"entity":"health_status"}
-    - [HIV]{"entity":"health_status"}
-    - [Diabetics]{"entity":"health_status"}
-    - [Pregnant]{"entity":"health_status"}
-    - [Sugar]{"entity":"health_status"}
-    - [None]{"entity":"health_status"}
+    - I have [Diabetics]{"entity":"health_status", "value":"Diabetics"}
+    - I have [HIV]{"entity":"health_status"}
+    - [Diabetics]{"entity":"health_status", "value":"Diabetics"}
+    - i have Malaria]{"entity":"health_status", "value":"Malaria"}
+    - [Malaria]{"entity":"health_status", "value":"Malaria"}
+    - [HIV]{"entity":"health_status", "value":"HIV"}
+    - [Diabetics]{"entity":"health_status", "value":"Diabetics"}
+    - [Pregnant]{"entity":"health_status", "value":"Pregnant"}
+    - [Sugar]{"entity":"health_status", "value":"Sugar"}
+    - [None]{"entity":"health_status", "value":"None"}
 
 - lookup: health_status
   examples: |
