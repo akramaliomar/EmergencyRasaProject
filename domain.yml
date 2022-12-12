@@ -68,26 +68,26 @@ slots:
   is_authenticated:
         type: text
         initial_value: "No"
-  temp_reading:
-    type: float
-    influence_conversation: true
-    max_value: 45.0
-    min_value: 20.0
-  sop2_reading:
-    type: float
-    influence_conversation: true
-    max_value: 120.0
-    min_value: 60.0
-  heart_reading:
-    type: float
-    influence_conversation: true
-    max_value: 80.0
-    min_value: 10.0
-  resp_reading:
-    type: float
-    influence_conversation: true
-    max_value: 70.0
-    min_value: 0.0
+#  temp_reading:
+#    type: float
+#    influence_conversation: true
+#    max_value: 45.0
+#    min_value: 20.0
+#  sop2_reading:
+#    type: float
+#    influence_conversation: true
+#    max_value: 120.0
+#    min_value: 60.0
+#  heart_reading:
+#    type: float
+#    influence_conversation: true
+#    max_value: 80.0
+#    min_value: 10.0
+#  resp_reading:
+#    type: float
+#    influence_conversation: true
+#    max_value: 70.0
+#    min_value: 0.0
   requested_slot:
     type: unfeaturized
     influence_conversation: false
@@ -96,11 +96,9 @@ responses:
   - text: Hey! How are you?
 
   utter_goodbye:
-  - text: Bye
+  - text: Thanks for providing the values
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
-  utter_thanks:
-  - text: Thanks for providing the values.
   utter_out_of_scope:
   - text: Sorry,Invalid Response.
   utter_medbot_greet:
