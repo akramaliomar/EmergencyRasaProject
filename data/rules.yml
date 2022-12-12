@@ -17,12 +17,12 @@ rules:
   - intent: nlu_fallback
   - action: utter_out_of_scope
 
-- rule: Starting
-  steps:
-  - intent: greet
-  - action: utter_medbot_greet
-  - action: utter_medbot_intro
-  - action: activity_tracking_action
+#- rule: Starting
+#  steps:
+#  - intent: greet
+#  - action: utter_medbot_greet
+#  - action: utter_medbot_intro
+#  - action: activity_tracking_action
 
 #- rule: Authentication form
 #  steps:
@@ -44,79 +44,65 @@ rules:
     - requested_slot: null
   - action: action_device_code
   - action: activity_tracking_action
-#  - action: utter_ready
-
-- rule: age information
-  steps:
-  - intent: age
-    entities:
-      - age: "Adult"
-  - slot_was_set:
-      - age: "Adult"
-#  - action: action_request_age
-  - action: activity_tracking_action
-#  - action: utter_ask_for_health
-
-- rule: health information
-  steps:
-  - intent: health
-    entities:
-      - health_status: "Diabetics"
-  - slot_was_set:
-      - health_status: "Diabetics"
-#  - action: action_request_health
-  - action: activity_tracking_action
-#  - action: utter_context
-
-- rule: context information
-  steps:
-  - intent: context
-    entities:
-      - context: "Home"
-  - slot_was_set:
-      - context: "Home"
-#  - action: action_request_context
-  - action: activity_tracking_action
-
-
-- rule: vital sign readings
-  steps:
-  - intent: vital_signs
-    entities:
-      - vital_signs: "temperature"
-  - slot_was_set:
-      - vital_signs: "temperature"
-  - action: action_request_vital_signs
-  - action: activity_tracking_action
-
-
-
-- rule: what is suggested
-  steps:
-  - intent: user_what_is_suggested
-  - action: suggested_action
-  - action: activity_tracking_action
-
-
-#- rule: test rule
+#
+#- rule: age information
 #  steps:
+#  - intent: age
+#    entities:
+#      - age: "Adult"
+#  - slot_was_set:
+#      - age: "Adult"
 #  - action: activity_tracking_action
-
-
-- rule: start diagnosis
-  steps:
-  - intent: user_diagnostic_enquiries
-  - action: diagnostic_response_action
-  - action: activity_tracking_action
-
-- rule: what is wrong
-  steps:
-  - intent: user_what_is_wrong
-  - action: check_abnormal_vital_signs_action
-  - action: activity_tracking_action
-
-- rule: exit
-  steps:
-  - intent: exit
-  - action: exit_action
-  - action: activity_tracking_action
+#
+#- rule: health information
+#  steps:
+#  - intent: health
+#    entities:
+#      - health_status: "Diabetics"
+#  - slot_was_set:
+#      - health_status: "Diabetics"
+#  - action: activity_tracking_action
+#
+#- rule: context information
+#  steps:
+#  - intent: context
+#    entities:
+#      - context: "Home"
+#  - slot_was_set:
+#      - context: "Home"
+#  - action: activity_tracking_action
+#
+#
+#- rule: vital sign readings
+#  steps:
+#  - intent: vital_signs
+#    entities:
+#      - vital_signs: "temperature"
+#  - slot_was_set:
+#      - vital_signs: "temperature"
+#  - action: action_request_vital_signs
+#  - action: activity_tracking_action
+#
+#- rule: what is suggested
+#  steps:
+#  - intent: user_what_is_suggested
+#  - action: suggested_action
+#  - action: activity_tracking_action
+#
+#- rule: start diagnosis
+#  steps:
+#  - intent: user_diagnostic_enquiries
+#  - action: diagnostic_response_action
+#  - action: activity_tracking_action
+#
+#- rule: what is wrong
+#  steps:
+#  - intent: user_what_is_wrong
+#  - action: check_abnormal_vital_signs_action
+#  - action: activity_tracking_action
+#
+#- rule: exit
+#  steps:
+#  - intent: exit
+#  - action: exit_action
+#  - action: activity_tracking_action
