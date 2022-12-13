@@ -52,10 +52,11 @@ nlu:
   examples: |
     - Diagnosing Patient
     - Diagnosing
+    - tel me about my health status
     - Checking Patient condition
     - Patient check
     - Health check
-    - Can you tel me about the patient?
+    - Can you tel me about the patient condition?
     - How is the patient?
     - diagnose the patient
     - diagnosing patient
@@ -68,11 +69,19 @@ nlu:
     - detect anomaly
     - Is there any anomaly?
     - check me
-    - Vital Signs anomalies
+    - tel me about anomalies
     - Identify anomalies
     - Check anomalies
-    - check vital signs anomalies
+    - check anomalies
+    - can i know about my health status
+    - what is my health status
     - Am I ok?
+    - what is wrong is the patient?
+    - Is there any problem?
+    - Anything wrong with the patient
+    - What is the issue with with patient?
+    - what is wrong with this patient
+    - do I have a problem?
 - intent: user_what_is_wrong
   examples: |
     - Wrong?
@@ -80,10 +89,6 @@ nlu:
     - Problem?
     - What is the problem?
     - What is not normal?
-    - what is wrong is the patient?
-    - Is there any problem?
-    - Anything wrong with the patient
-    - What is the issue with with patient?
     - Something wrong with the patient
     - what is wrong
     - what is wrong with patient
@@ -94,11 +99,13 @@ nlu:
     - Vital Signs reading
     - Check Vital Sign
     - vital sign readings
-    - what is wrong with this patient
-    - do I have a problem?
     - recent vital signs
+    - can you tel me about my vital signs
     - can I get the recent vital signs
     - check vital signs
+    - tel me about the vital signs readings
+    - can i know about my vital signs
+    - may i know about my vital signs readings
 - intent: user_what_is_suggested
   examples: |
     - What is suggested solution
@@ -182,9 +189,6 @@ nlu:
     - Pulse
     - breathing
     - Breathing
-
-
-
 
 
 - synonym: Heart
