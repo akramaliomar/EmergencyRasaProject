@@ -161,12 +161,48 @@ nlu:
     - [Spo2]{"entity":"vital_signs", "value":"Spo2"}
  
 
-- synonym: heart
+- lookup: vital_signs
   examples: |
     - Heart
     - pulse
     - heart
-    
+    - temp
+    - Temp
+    - temperature
+    - heat
+    - Heat
+    - hotness
+    - Spo2
+    - spo2
+    - Oxygen
+    - Respiration
+    - breathing
+    - respiration
+    - pulse
+    - Pulse
+    - breathing
+    - Breathing
+
+
+
+
+
+- synonym: Heart
+  examples: |
+    - Heart
+    - pulse
+    - heart
+    - Pulse
+
+- synonym: Temperature
+  examples: |
+    - temp
+    - Temp
+    - temperature
+    - heat
+    - Heat
+    - hotness
+
 
 - synonym: Spo2
   examples: |
@@ -180,6 +216,8 @@ nlu:
     - Respiration
     - breathing
     - respiration
+    - Breathing
+    
    
 
 - intent: age
