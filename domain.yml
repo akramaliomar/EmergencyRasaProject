@@ -150,7 +150,7 @@ responses:
 #    - text: Your Context is {context}
 
   utter_ask_for_health:
-  - text: '{h_sms}Do you have any of these (Diabetics, Malaria, HIV or Pregnant)?. If Yes list them'
+  - text: 'Do you have any of these (Diabetics, Malaria, HIV or Pregnant)?. If Yes list them'
     buttons:
       - title: "No"
         payload: /health{"health_status":"None"}
